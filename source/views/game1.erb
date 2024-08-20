@@ -2,9 +2,9 @@
 <%random_image = sample["filepath"]%>
 <img src="<%=random_image%>" alt="Bild">
 
-<form> 
+<form method="post"> 
     <input type="hidden" name="img_id" value="<%sample["id"]%>">
-    <select placeholder = "namn" name = "answer" id="select_game1" required> 
+    <select placeholder = "namn" name = "answer" required> 
         <option disabled selected value> -- Välj ett namn -- </option>
         <%@people_db.each do |people|%>
         <option value="<%=people["name"]%>%"><%=people["name"]%></option>

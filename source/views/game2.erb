@@ -1,6 +1,9 @@
-<img.img_size src="data:image/jpeg;base64,#{Base64.encode64(people_db['filepath'])}" alt="Bild">
+<%sample = @people_db.sample%>
+<%random_image = sample["filepath"]%>
+<img src="<%=random_image%>" alt="Bild">
 
-<form> 
+<form method="post"> 
+    <input type="hidden" name="img_id" value="<%sample["id"]%>">
     <input type="text" name="answer">
     <input type="submit" value="Rätta">
 </form>
