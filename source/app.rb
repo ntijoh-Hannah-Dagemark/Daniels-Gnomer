@@ -17,6 +17,7 @@ class App < Sinatra::Base
     end
 
     get '/game' do
+        @people_db = db.execute("SELECT * FROM people")
         erb :game1
     end
 
