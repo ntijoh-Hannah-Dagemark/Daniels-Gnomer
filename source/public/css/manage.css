@@ -1,0 +1,19 @@
+.db-content {
+    display: flex;
+    flex-direction: row;
+}
+
+.db-id {
+    display: flex;
+    
+}
+
+.db-picture {}
+
+.db-name {}
+
+.manage-interface {}
+
+.submit-person {}
+
+.delete-person {}
