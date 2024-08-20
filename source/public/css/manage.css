@@ -1,19 +1,111 @@
-.db-content {
+body {
+    margin: 0;
     display: flex;
     flex-direction: row;
+    height: 100vh;
+}
+
+/*
+    Database content
+*/
+
+.db-content {
+    width: 70%;
+}
+
+.item {
+    margin-top: 50px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
 }
 
 .db-id {
-    display: flex;
-    
+    font-size: 40px;
+    margin-right: 20px;
 }
 
-.db-picture {}
+.db-picture {    
+    width: 150px;
+    height: 150px;
+    margin-right: 30px;
+}
 
-.db-name {}
+.db-name {
+    font-size: 30px;
+}
 
-.manage-interface {}
+/*
+    Manage Interface
+*/
 
-.submit-person {}
+.manage-interface {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    border: 1px red solid;
+    position: fixed;
+    left: 70%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Horisontell centrering */
+}
 
-.delete-person {}
+.manage-interface-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/*
+    Submit form
+*/
+
+.submit-form {
+    border: 1px green solid;
+    width: 400px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.submit-file-upload-button {
+    width: 160px;
+    font-size: 30px;
+    margin-top: 50px;
+}
+
+.submit-name-field {
+    margin-top: auto;
+    margin-bottom: auto;
+    font-size: 24px;
+}
+
+.submit-person-button {
+    margin-bottom: 50px;
+    font-size: 24px;
+}
+
+/*
+    Delete person
+*/
+
+.delete-person {
+    border: 1px green solid;
+    width: 400px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
