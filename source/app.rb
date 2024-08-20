@@ -17,11 +17,16 @@ class App < Sinatra::Base
     end
 
     get '/game' do
-        @people_db = db.execute("SELECT * FROM people")
+        @people_db = db.execute("SELECT * FROM people").first
         erb :game1
     end
 
     get '/index' do
         erb :index
+    end
+
+    post "answer" do
+        ansr = params["answer"]
+        imgid = params["img_id"]
     end
 end
