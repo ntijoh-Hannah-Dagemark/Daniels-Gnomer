@@ -12,6 +12,11 @@ class App < Sinatra::Base
         return @db
     end
 
+    get '/manage/default' do
+      load "./db/default.rb"
+      redirect '/manage'
+    end
+
     get '/' do
         ##stuff
         # erb: (page)
@@ -26,6 +31,10 @@ class App < Sinatra::Base
 
     get '/index' do
         erb :index
+    end
+
+    get '/manage' do
+        erb :manage
     end
 
     post "answer" do
