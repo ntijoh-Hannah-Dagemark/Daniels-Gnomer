@@ -1,10 +1,13 @@
-<%random_image = @people_db[:filepath].sample%>
+<%sample = @people_db.sample%>
+<%random_image = sample["filepath"]%>
 <img src="<%=random_image%>" alt="Bild">
+<%p sample%>
+<%p random_image%>
 
 <form> 
     <select name = "answer"> 
         <%@people_db.each do |people|%>
-        <option value="#{people['name']}"></option>
+        <option value="#{people["name"]}"></option>
         <%end%> 
     </select>
     <input type="submit" value="Rätta">
