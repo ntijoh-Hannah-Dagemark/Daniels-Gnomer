@@ -13,4 +13,14 @@ class App < Sinatra::Base
     get '/' do
         ##stuff
         # erb: (page)
+        redirect "/index"
     end
+
+    get '/game' do
+        erb :game1
+    end
+
+    get '/index' do
+        erb :index
+    end
+end
