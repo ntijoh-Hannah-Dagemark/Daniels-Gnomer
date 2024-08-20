@@ -1,11 +1,14 @@
-<%random_image = @people_db[:filepath].sample%>
+<%sample = @people_db.sample%>
+<%random_image = sample["filepath"]%>
 <img src="<%=random_image%>" alt="Bild">
 
-<form> 
-    <select name = "answer"> 
+<form method="post"> 
+    <input type="hidden" name="img_id" value="<%sample["id"]%>">
+    <select placeholder = "namn" name = "answer" required> 
+        <option disabled selected value> -- Välj ett namn -- </option>
         <%@people_db.each do |people|%>
-        <option value="#{people['name']}"></option>
+        <option value="<%=people["name"]%>%"><%=people["name"]%></option>
         <%end%> 
     </select>
-    <input type="submit" value="Rätta">
+        <input type="submit" value="Rätta">
 </form>
