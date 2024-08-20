@@ -48,6 +48,8 @@ GEM
       rack (~> 2.2, >= 2.2.4)
       rack-protection (= 3.2.0)
       tilt (~> 2.0)
+    sinatra-flash (0.3.0)
+      sinatra (>= 1.0.0)
     sqlite3 (2.0.4-aarch64-linux-gnu)
     sqlite3 (2.0.4-aarch64-linux-musl)
     sqlite3 (2.0.4-arm-linux-gnu)
@@ -83,6 +85,7 @@ DEPENDENCIES
   rack (~> 2.2.8)
   rerun
   sinatra
+  sinatra-flash
   sqlite3
   thin
 
