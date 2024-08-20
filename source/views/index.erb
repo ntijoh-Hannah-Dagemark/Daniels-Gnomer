@@ -4,57 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-html, body {
-  height: 100%;
-  margin: 0;
-  background-color: white;
-}
-
-.container {
-  display: flex;
-  margin-top: 2%
-}
-
-.item {
-  flex-grow: 5;
-  height: 100px;
-  text-align: center;
-}
-
-.item2 {
-  flex-grow: 1;
-  height: 100px;
-}
-
-.item + .item2 {
-  margin-left: 2%;
-}
-.grid2x2 {
-  min-height: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-}
-.grid2x2 > div {
-  display: flex; 
-  flex-basis: calc(50% - 40px);  
-  justify-content: center;
-  flex-direction: column;
-}
-.grid2x2 > div > div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-.box { margin: 20px; }
-.box1 { background-color: red; }
-.box2 { background-color: orange; }
-.box3 { background-color: purple; }
-.box4 { background-color: grey; }
-    </style>
+    <link rel="stylesheet" href="./../public/css/index.css">
 </head>
 <body>
     <div class="container">
