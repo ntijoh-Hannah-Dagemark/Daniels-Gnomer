@@ -42,6 +42,8 @@ def self.seed_tables
     people = [
         {name: 'Hej1', filepath: '/img/1.png'},
         {name: 'Hej2', filepath: '/img/2.png'},
+        {name: 'Hej3', filepath: '/img/3.png'},
+        {name: 'Hej4', filepath: '/img/4.png'},
     ]
 
     people.each do |people|

@@ -1,16 +1,23 @@
-<%sample = @people_db.sample%>
-<%random_image = sample["filepath"]%>
-<img src="<%=random_image%>" alt="Bild">
+<% sample = @people_db.sample %>
+<% random_image = sample["filepath"] %>
+<% random_name = sample["name"] %>
+
+<% names = [] %>
+
+<% @people_db.each do |person| %>
+  <% names << person["name"] %>
+<% end %>
+
+<% wrong_names = names.reject { |name| name == random_name }.sample(3) %>
+<% all_options = [random_name, *wrong_names].shuffle %>
+
+<img src="<%= random_image %>" alt="Bild">
 
 <form> 
-    <input type="hidden" name="img_id" value="<%sample["id"]%>">
-      <input type="radio" id="svar1" name="answer" value="svar1">
-      <label for="svar1">HTML</label><br>
-      <input type="radio" id="svar2" name="answer" value="svar2">
-      <label for="sva2">CSS</label><br>
-      <input type="radio" id="svar3" name="answer" value="svar3">
-      <label for="svar3">JavaScript</label>
-      <input type="radio" id="svar4" name="answer" value="svar4">
-      <label for="svar3">JavaScript</label>
-        <input type="submit" value="Rätta">
+    <input type="hidden" name="img_id" value="<%= sample["id"] %>">
+    <% all_options.each_with_index do |name, index| %>
+        <input type="radio" id="svar<%= index + 1 %>" name="answer" value="svar<%= index + 1 %>">
+        <label for="svar<%= index + 1 %>"><%= name %></label><br>
+    <% end %>
+    <input type="submit" value="Rätta">
 </form>
