@@ -38,10 +38,11 @@ class App < Sinatra::Base
     end
 
     get '/manage' do
+        @db_content = db.execte("SELECT * FROM people")
         erb :manage
     end
 
-    post "answer" do
+    post "/game/1" do
         ansr = params["answer"]
         imgid = params["img_id"]
         path = "./../public/img/" + imgid.to_s + ".png"
@@ -50,8 +51,8 @@ class App < Sinatra::Base
         if ansr == correct
             flash[:notice] = "Korrekt"
         else
-            flash[:notice] = ("Fel, det skulle vara " + correct).to_s 
+            flash[:notice] = "Fel, det skulle vara #{correct}"
         end
-        redirect "/game"
+        redirect "/game/1"
     end
 end
