@@ -4,6 +4,9 @@ require_relative 'db/seed'
 
 class App < Sinatra::Base 
 
+    enable :sessions
+    register Sinatra::Flash
+
     def db
         if @db == nil
             @db = SQLite3::Database.new('./db/db.sqlite')
@@ -12,9 +15,10 @@ class App < Sinatra::Base
         return @db
     end
 
-    get '/manage/default' do
+    get '/manager/default' do
       load "./db/default.rb"
-      redirect '/manage'
+      flash[:success] = "Database Defaulted Successfully"
+      redirect '/index'
     end
 
     get '/' do

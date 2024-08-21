@@ -1,3 +1,12 @@
+<head>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<% if flash[:success] %>
+    <div class="flash success">
+        <%= flash[:success]%>
+    </div>
+<% end %>
 
 <div class="container">
     <div class="item">

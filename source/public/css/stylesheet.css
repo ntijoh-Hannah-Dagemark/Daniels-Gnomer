@@ -5,4 +5,33 @@
     position:fixed;
     font-size:4rem;
     font-family:Arial, Helvetica, sans-serif;
-  }
+}
+
+.flash {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-10%);
+  background-color: #f8f9fa;
+  padding: 15px 30px;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  color: #333;
+  z-index: 1000;
+  opacity: 0;
+  animation: fadeInOut 4s ease-in-out forwards;
+}
+
+.flash.success {
+  background-color: paleturquoise;
+  color: darkslategray;
+  border: 1px solid black;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+  10% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  90% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+}
