@@ -43,10 +43,10 @@ class App < Sinatra::Base
     end
 
     post "/game/1" do
-        ansr = params["answer"]
-        imgid = params["img_id"]
-        path = "./../public/img/" + imgid.to_s + ".png"
-        correct = db.execute("SELECT name FROM people WHERE filepath = ?", path)
+        ansr = params['answer']
+        imgid = params['img_id']
+        print "answer is #{ansr} and imgid is #{imgid}"
+        correct = db.execute("SELECT name FROM people WHERE id = ?", imgid).first["name"]
         print("correct should be ", correct, " answer is ", ansr)
         if ansr == correct
             flash[:notice] = "Korrekt"
