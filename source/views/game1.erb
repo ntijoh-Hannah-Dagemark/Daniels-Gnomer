@@ -1,6 +1,10 @@
+<head>
+    <link rel="stylesheet" href="css/stylesheet.css">
+</head>
+
 <%sample = @people_db.sample%>
 <%random_image = sample["filepath"]%>
-<img src="<%=random_image%>" alt="Bild">
+<img src="<%=random_image%>" alt="Bild" class="img_game">
 
 <form method="post"> 
     <input type="hidden" name="img_id" value="<%sample["id"]%>">
