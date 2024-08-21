@@ -28,9 +28,14 @@ class App < Sinatra::Base
     end
 
     get '/game/:id' do |id|
-        @people_db = db.execute("SELECT * FROM people")
-        @game_id = id
-        erb :game
+        result = db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name=?;", ["people"])
+        if result.empty?
+          redirect "/manage"
+        else
+            @people_db = db.execute("SELECT * FROM people")
+            @game_id = id
+            erb :game
+        end
     end
 
     get '/index' do
