@@ -1,3 +1,9 @@
+<% if flash[:notice] %>
+    <div class="flash notice">
+        <%= flash[:notice]%>
+    </div>
+<% end %>
+
 <%sample = @people_db.sample%>
 <%random_image = sample["filepath"]%>
 <img src="<%=random_image%>" alt="Bild" class="img_game">

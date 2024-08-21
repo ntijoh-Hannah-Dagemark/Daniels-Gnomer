@@ -40,7 +40,7 @@ class Defaulter
     people = []
     imgs.each do |img|
       name = File.basename(img, '.jpeg')
-      people.append({name: "#{name}", filepath: "/img/#{name}.jpeg"})
+      people.append({name: "#{name}", filepath: "/img/defaults/#{name}.jpeg"})
       print "Loaded #{name}\n"
     end
 
