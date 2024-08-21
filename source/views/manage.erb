@@ -4,7 +4,7 @@
         <% if @db_content == "empty" %>
 
             <p class="manage-db-empty-text">
-                Databasen är tom.
+                Databasen är tom :(
             </p>
 
         <% else %>
@@ -53,8 +53,11 @@
             <div class="manage-spacer"></div>
 
             <div class="manage-default-people">
-                <a class="manage-default-people-link" href="/manager/default">
+                <a class="manage-default-people-link-new" href="/manager/default">
                     <button class="manage-default-people-button">Ladda in klassen</button>
+                </a>
+                <a class="manage-delete-all-people-link" href="/manager/delete-all">
+                    <button class="manage-delete-all-people-button">Radera alla i listan</button>
                 </a>
             </div>
 

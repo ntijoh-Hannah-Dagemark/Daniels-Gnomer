@@ -10,8 +10,8 @@
 */
 
 .manage-db-empty-text {
-    font-size: 28px;
-    color: rebeccapurple;
+    font-size: 36px;
+    margin-left: 50px;
 }
 
 .manage-db-content {
@@ -93,6 +93,7 @@
     font-size: 30px;
     margin-top: 50px;
     padding: 0px;
+    cursor: pointer;
 }
 
 .manage-submit-name-field {
@@ -115,7 +116,7 @@
     padding-right: 40px;
     padding-top: 12px;
     padding-bottom: 12px;
-
+    cursor: pointer;
     background-color: white;
     border-style: solid;
     border: 1px solid black;
@@ -167,6 +168,7 @@
     border-style: solid;
     border: 1px solid black;
     border-radius: 40px;
+    cursor: pointer;
 }
 
 /*
@@ -184,12 +186,14 @@
     text-align: center;
 }
 
-.manage-default-people-link {
+.manage-default-people-link-new {
     margin-top: auto;
     margin-bottom: auto;
 }
 
-.manage-default-people-link {
+.manage-default-people-button {
+    margin-top: auto;
+    margin-bottom: auto;
     font-size: 18px;
     padding-left: 40px;
     padding-right: 40px;
@@ -199,6 +203,31 @@
     border-style: solid;
     border: 1px solid black;
     border-radius: 40px;
+    cursor: pointer;
+}
+
+/*
+    Radera alla
+*/
+
+.manage-delete-all-people-link {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.manage-delete-all-people-button {
+    margin-top: auto;
+    margin-bottom: auto;
+    font-size: 18px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: white;
+    border-style: solid;
+    border: 1px solid black;
+    border-radius: 40px;
+    cursor: pointer;
 }
 
 /*
