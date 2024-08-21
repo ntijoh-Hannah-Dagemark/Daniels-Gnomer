@@ -1,9 +1,11 @@
 <div class="manage-body">
     <div class="manage-db-content">
     
-        <% if @db_content.empty? %>
+        <% if @db_content == "empty" %>
 
-            <p>Databasen är tom.</p>
+            <p class="manage-db-empty-text">
+                Databasen är tom.
+            </p>
 
         <% else %>
 
@@ -20,48 +22,10 @@
                         <p><%= f["name"] %></p>
                     </div>
                 </div>
+
             <% end %>
             
         <% end %>
-
-<!--
-    <% if @db_content.any? %>
-        <% @db_content.each do | f | %>
-
-            <div class="manage-item">
-                <div class="manage-db-id">
-                    <p><%=f["id"]%></p>
-                </div>
-                <div class="manage-db-picture">
-                    <img class="manage-db-picture" src="<%=f["filepath"]%>">
-                </div>
-                <div class="manage-db-name">
-                    <p><%=f["name"]%></p>
-                </div>
-            </div>
-
-        <% end %>
-    <% else %>
-        <p>Ingen data tillgänglig i databasen.</p>
-    <% end %>
-
-
-    <% @db_content.each do | f | %>
-
-        <div class="manage-item">
-            <div class="manage-db-id">
-                <p><%=f["id"]%></p>
-            </div>
-            <div class="manage-db-picture">
-                <img class="manage-db-picture" src="<%=f["filepath"]%>">
-            </div>
-            <div class="manage-db-name">
-                <p><%=f["name"]%></p>
-            </div>
-        </div>
-        -->
-
-    <% end %>
 
     </div>
     <div class="manage-interface">
