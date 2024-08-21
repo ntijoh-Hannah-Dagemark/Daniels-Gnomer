@@ -30,10 +30,7 @@ class Defaulter
     imgs.each do |img|
       FileUtils.rm(img)
     end
-
-    if File.exist?("./db/db.sqlite")
-      FileUtils.rm("./db/db.sqlite")
-    end
+    db.execute("DROP TABLE IF EXISTS people")
       print "DELETED FILES AND CLEARED DATABASE\n"
   end
 
