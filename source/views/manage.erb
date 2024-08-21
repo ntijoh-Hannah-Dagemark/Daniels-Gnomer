@@ -1,86 +1,84 @@
-<div class="manage-db-content">
+<div class="manage-body">
+    <div class="manage-db-content">
     
 
 
 
-<!--
-    <div class="manage-item">
-        <div class="manage-db-id">
-            <p>1</p>
+    <!--
+        <div class="manage-item">
+            <div class="manage-db-id">
+                <p>1</p>
+            </div>
+            <div class="manage-db-picture">
+                <img class="manage-db-picture" src="./../public/img/1.png">
+            </div>
+            <div class="manage-db-name">
+                <p>hej1</p>
+            </div>
         </div>
-        <div class="manage-db-picture">
-            <img class="manage-db-picture" src="./../public/img/1.png">
-        </div>
-        <div class="manage-db-name">
-            <p>hej1</p>
-        </div>
-    </div>
 
-    <script>
-
-        * Läs in hela databasen som en lista
-
-        * Kolla hur lång listan är 
-
-        * Kör en loop som plockar varje variabel från listan och 
-        skapar segmentet med HTML koden ovan fast ersätter "<p>1</p>", 
-        "<img class="db-picture" src="./../public/img/1.png">" och 
-        "<p>hej1</p>" med rätt kod utifrån numret i listan från databasen. 
 
         * Om det inte finns några personer alls i listan så ska den skriva
-        ut det istället för att bara göra skärmen tom. 
+            ut det istället för att bara göra skärmen tom. 
 
-    </script>
-
-    <script>
-    let content = document.queryselector('.manage-db-content').innerHTML;
-
-    content = ``;
-
-    console.log("<%= @db_content %>");
-</script>
--->
-
-<%= 
-    people = @db_content;
-%>
-
-<p><%= people %></p>
+    -->
 
 
+    <% @db_content.each do | f | %>
 
-</div>
 
-<div class="manage-interface">
-
-    <div class="manage-interface-container">
-
-        <div>
-            <form class="manage-submit-form" method="post">
-                <input class="manage-submit-file-upload-button" type="file" name="" id="">
-                <input class="manage-submit-name-field" type="text" name="" id="" placeholder="Namn: ">
-                <input class="manage-submit-person-button" type="submit" value="Lägg till">
-            </form>
+        <div class="manage-item">
+            <div class="manage-db-id">
+                <p><%=f["id"]%></p>
+            </div>
+            <div class="manage-db-picture">
+                <img class="manage-db-picture" src="./../public/img/<%=f["filepath"]%>">
+            </div>
+            <div class="manage-db-name">
+                <p><%=f["name"]%></p>
+            </div>
         </div>
 
-        <div class="manage-spacer"></div>
 
-        <div>
-            <form class="manage-delete-form" method="POST">
-                <input class="manage-delete-number-field" type="number">
-                <div class="manage-delete-form-spacer"></div>
-                <input class="manage-delete-person-button" type="submit" value="Ta bort">
-            </form>
-        </div>
+    <% end %>
 
-        <div class="manage-spacer"></div>
 
-        <div class="manage-default-people">
-            <a class="manage-default-people-link" href="/manager/default">
-                <button class="manage-default-people-button">Ladda in klassen</button>
-            </a>
-        </div>
+
+
 
     </div>
 
+    <div class="manage-interface">
+
+        <div class="manage-interface-container">
+
+            <div>
+                <form class="manage-submit-form" method="post">
+                    <input class="manage-submit-file-upload-button" type="file" name="" id="">
+                    <input class="manage-submit-name-field" type="text" name="" id="" placeholder="Namn: ">
+                    <input class="manage-submit-person-button" type="submit" value="Lägg till">
+                </form>
+            </div>
+
+            <div class="manage-spacer"></div>
+
+            <div>
+                <form class="manage-delete-form" method="POST">
+                    <input class="manage-delete-number-field" type="number">
+                    <div class="manage-delete-form-spacer"></div>
+                    <input class="manage-delete-person-button" type="submit" value="Ta bort">
+                </form>
+            </div>
+
+            <div class="manage-spacer"></div>
+
+            <div class="manage-default-people">
+                <a class="manage-default-people-link" href="/manager/default">
+                    <button class="manage-default-people-button">Ladda in klassen</button>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
 </div>
