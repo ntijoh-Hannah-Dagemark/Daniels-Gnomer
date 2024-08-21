@@ -1,4 +1,6 @@
 require 'sqlite3'
+require 'bundler'
+Bundler.require
 require_relative 'seed'
 
 class Defaulter
@@ -28,12 +30,16 @@ class Defaulter
     imgs.each do |img|
       FileUtils.rm(img)
     end
-    Seeder.seed!
-    print "DELETED FILES AND CLEARED DATABASE\n"
+
+    if File.exist?("./db/db.sqlite")
+      FileUtils.rm("./db/db.sqlite")
+    end
+      print "DELETED FILES AND CLEARED DATABASE\n"
   end
 
   def self.create
     print "GENERATING DEFAULT SET\n"
+    Seeder.seed!
     path = "./public/img/defaults"
     imgs = Dir.glob("#{path}/*.jpeg")
     print "IDENTIFIED #{imgs.length} DEFAULTS\n\n"
@@ -50,4 +56,8 @@ class Defaulter
   end
 end
 
-Defaulter.default
+if $type == "default"
+  Defaulter.default
+elsif $type == "delete"
+  Defaulter.remove
+end

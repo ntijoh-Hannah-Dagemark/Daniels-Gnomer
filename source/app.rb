@@ -16,9 +16,17 @@ class App < Sinatra::Base
     end
 
     get '/manager/default' do
-      load "./db/default.rb"
-      flash[:success] = "Database Defaulted Successfully"
-      redirect '/manage'
+        $type = "default"
+        load "./db/default.rb"
+        flash[:success] = "Database Defaulted Successfully"
+        redirect '/manage'
+    end
+
+    get '/manager/delete-all' do
+        $type = "delete"
+        load "./db/default.rb"
+        flash[:success] = "Database Deleted Successfully"
+        redirect '/manage'
     end
 
     get '/' do
