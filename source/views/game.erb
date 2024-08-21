@@ -3,48 +3,51 @@
         <%= flash[:notice]%>
     </div>
 <% end %>
+<div class="game-design">
+    <div class="game-more-design">
+        <%sample = @people_db.sample%>
+        <%random_image = sample["filepath"]%>
+        <img src="<%=random_image%>" alt="Bild" class="img_game">
 
-<%sample = @people_db.sample%>
-<%random_image = sample["filepath"]%>
-<img src="<%=random_image%>" alt="Bild" class="img_game">
+        <%if @game_id == "1"%>
+            <form method="post"> 
+                <input type="hidden" name="img_id" value="<%sample["id"]%>">
+                <select placeholder = "namn" name = "answer" required> 
+                    <option disabled selected value> -- Välj ett namn -- </option>
+                    <%@people_db.each do |people|%>
+                    <option value="<%=people["name"]%>%"><%=people["name"]%></option>
+                    <%end%> 
+                </select>
+                    <input type="submit" value="Rätta">
+            </form>
+        <%elsif @game_id == "2"%>
+            <form method="post"> 
+                <input type="hidden" name="img_id" value="<%sample["id"]%>">
+                <input type="text" name="answer">
+                <input type="submit" value="Rätta">
+            </form>
+        <%elsif @game_id == "3"%>
+            <%random_name = sample["name"]%>
+            <% names = [] %>
 
-<%if @game_id == "1"%>
-    <form method="post"> 
-        <input type="hidden" name="img_id" value="<%sample["id"]%>">
-        <select placeholder = "namn" name = "answer" required> 
-            <option disabled selected value> -- Välj ett namn -- </option>
-            <%@people_db.each do |people|%>
-            <option value="<%=people["name"]%>%"><%=people["name"]%></option>
-            <%end%> 
-        </select>
-            <input type="submit" value="Rätta">
-    </form>
-<%elsif @game_id == "2"%>
-    <form method="post"> 
-        <input type="hidden" name="img_id" value="<%sample["id"]%>">
-        <input type="text" name="answer">
-        <input type="submit" value="Rätta">
-    </form>
-<%elsif @game_id == "3"%>
-    <%random_name = sample["name"]%>
-    <% names = [] %>
+            <% @people_db.each do |person| %>
+            <% names << person["name"] %>
+            <% end %>
 
-    <% @people_db.each do |person| %>
-    <% names << person["name"] %>
-    <% end %>
+            <% wrong_names = names.reject { |name| name == random_name }.sample(3) %>
+            <% all_options = [random_name, *wrong_names].shuffle %>
 
-    <% wrong_names = names.reject { |name| name == random_name }.sample(3) %>
-    <% all_options = [random_name, *wrong_names].shuffle %>
-
-    <form> 
-        <input type="hidden" name="img_id" value="<%= sample["id"] %>">
-        <% all_options.each do |name| %>
-            <input type="radio" id="svar" name="answer" value="answer">
-            <label for="svar"><%= name %></label><br>
-        <% end %>
-        <input type="submit" value="Rätta">
-    </form>
-<%else%>
-    <h2>Spelet hittades inte</h2>
-    <a href="/">Gå tillbacka</a>
-<%end%>
+            <form> 
+                <input type="hidden" name="img_id" value="<%= sample["id"] %>">
+                <% all_options.each do |name| %>
+                    <input type="radio" id="svar" name="answer" value="answer">
+                    <label for="svar"><%= name %></label><br>
+                <% end %>
+                <input type="submit" value="Rätta">
+            </form>
+        <%else%>
+            <h2>Spelet hittades inte</h2>
+            <a href="/">Gå tillbacka</a>
+        <%end%>
+    </div>
+</div>
