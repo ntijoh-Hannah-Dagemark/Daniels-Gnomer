@@ -15,7 +15,7 @@
 
 <form> 
     <input type="hidden" name="img_id" value="<%= sample["id"] %>">
-    <% all_options.each_with_index do |name| %>
+    <% all_options.each do |name| %>
         <input type="radio" id="svar" name="answer" value="answer">
         <label for="svar"><%= name %></label><br>
     <% end %>
