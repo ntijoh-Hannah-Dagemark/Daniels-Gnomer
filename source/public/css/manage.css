@@ -13,7 +13,7 @@ body {
     width: 70%;
 }
 
-.item {
+.manage-item {
     margin-top: 50px;
     padding-top: 20px;
     padding-bottom: 20px;
@@ -25,20 +25,20 @@ body {
     border-bottom: 1px solid gray;
 }
 
-.db-id {
+.manage-db-id {
     font-size: 40px;
     margin-right: 40px;
     border-right: 1px solid black;
     padding-right: 20px;
 }
 
-.db-picture {    
+.manage-db-picture {    
     width: 150px;
     height: 150px;
     margin-right: 40px;
 }
 
-.db-name {
+.manage-db-name {
     font-size: 40px;
     border-left: 1px solid black;
     padding-left: 20px;
@@ -72,7 +72,7 @@ body {
     Submit form
 */
 
-.submit-form {
+.manage-submit-form {
     box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.75);
     border-radius: 60px;
     width: 400px;
@@ -83,14 +83,14 @@ body {
     text-align: center;
 }
 
-.submit-file-upload-button {
+.manage-submit-file-upload-button {
     width: 160px;
     font-size: 30px;
     margin-top: 50px;
     padding: 0px;
 }
 
-.submit-name-field {
+.manage-submit-name-field {
     margin-top: auto;
     margin-bottom: auto;
     font-size: 24px;
@@ -103,7 +103,7 @@ body {
     border-radius: 10px;
 }
 
-.submit-person-button {
+.manage-submit-person-button {
     margin-bottom: 50px;
     font-size: 24px;
     padding-left: 40px;
@@ -121,7 +121,7 @@ body {
     Delete person
 */
 
-.delete-form {
+.manage-delete-form {
     box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.75);
     border-radius: 60px;
     width: 400px;
@@ -132,7 +132,7 @@ body {
     text-align: center;
 }
 
-.delete-number-field {
+.manage-delete-number-field {
     width: 160px;
     font-size: 30px;
     margin-top: 50px;
@@ -146,7 +146,12 @@ body {
     border-radius: 10px;
 }
 
-.delete-person-button {
+.manage-delete-form-spacer {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.manage-delete-person-button {
     margin-bottom: 50px;
     font-size: 24px;
     padding-left: 40px;
@@ -159,16 +164,11 @@ body {
     border-radius: 40px;
 }
 
-.delete-form-spacer {
-    margin-top: auto;
-    margin-bottom: auto;
-}
-
 /*
     Ladda in klassen
 */
 
-.default-people {
+.manage-default-people {
     box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.75);
     border-radius: 60px;
     width: 400px;
@@ -179,12 +179,12 @@ body {
     text-align: center;
 }
 
-.default-people-link {
+.manage-default-people-link {
     margin-top: auto;
     margin-bottom: auto;
 }
 
-.default-people-button {
+.manage-default-people-link {
     font-size: 18px;
     padding-left: 40px;
     padding-right: 40px;
@@ -200,6 +200,6 @@ body {
     Spacer
 */
 
-.spacer {
+.manage-spacer {
     height: 100px;
 }
