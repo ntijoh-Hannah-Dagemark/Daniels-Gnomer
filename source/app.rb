@@ -38,7 +38,7 @@ class App < Sinatra::Base
     end
 
     get '/manage' do
-        @db_content = db.execte("SELECT * FROM people")
+        @db_content = db.execute("SELECT * FROM people")
         erb :manage
     end
 
