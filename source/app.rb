@@ -23,9 +23,7 @@ class App < Sinatra::Base
     end
 
     get '/manager/delete-all' do
-        $type = "delete"
-        load "./db/default.rb"
-        flash[:success] = "Database Deleted Successfully"
+        db.execute("DROP TABLE IF EXISTS people")
         redirect '/manage'
     end
 
