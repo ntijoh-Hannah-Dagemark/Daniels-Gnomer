@@ -29,8 +29,8 @@ class App < Sinatra::Base
 
     get '/game/:id' do |id|
         @people_db = db.execute("SELECT * FROM people")
-        game_specific = "game#{id}"
-        erb game_specific.to_sym
+        @game_id = id
+        erb :game
     end
 
     get '/index' do
