@@ -9,6 +9,11 @@
     Database content
 */
 
+.manage-db-empty-text {
+    font-size: 28px;
+    color: rebeccapurple;
+}
+
 .manage-db-content {
     width: 70%;
 }
