@@ -33,9 +33,9 @@
         <div class="manage-interface-container">
 
             <div>
-                <form class="manage-submit-form" method="post">
-                    <input class="manage-submit-file-upload-button" type="file" name="" id="">
-                    <input class="manage-submit-name-field" type="text" name="" id="" placeholder="Namn: ">
+                <form class="manage-submit-form" method="POST" action="/manage/add-person">
+                    <input class="manage-submit-file-upload-button" type="file" id="file">
+                    <input class="manage-submit-name-field" type="text" id="name" placeholder="Namn: ">
                     <input class="manage-submit-person-button" type="submit" value="Lägg till">
                 </form>
             </div>
@@ -43,8 +43,8 @@
             <div class="manage-spacer"></div>
 
             <div>
-                <form class="manage-delete-form" method="POST">
-                    <input class="manage-delete-number-field" type="number">
+                <form class="manage-delete-form" method="POST" action="/manage/remove-person">
+                    <input class="manage-delete-number-field" type="number" id="number">
                     <div class="manage-delete-form-spacer"></div>
                     <input class="manage-delete-person-button" type="submit" value="Ta bort">
                 </form>
