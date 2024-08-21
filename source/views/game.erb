@@ -13,7 +13,7 @@
 
 <%if @game_id == "1"%>
     <form method="post"> 
-        <input type="hidden" name="img_id" value="<%sample["id"]%>">
+        <input type="hidden" name="img_id" value="<%=sample["id"]%>">
         <select placeholder = "namn" name = "answer" required> 
             <option disabled selected value> -- Välj ett namn -- </option>
             <%@people_db.each do |people|%>
@@ -24,7 +24,7 @@
     </form>
 <%elsif @game_id == "2"%>
     <form method="post"> 
-        <input type="hidden" name="img_id" value="<%sample["id"]%>">
+        <input type="hidden" name="img_id" value="<%=sample["id"]%>">
         <input type="text" name="answer">
         <input type="submit" value="Rätta">
     </form>
@@ -40,7 +40,7 @@
             <% all_options = [random_name, *wrong_names].shuffle %>
 
             <form> 
-                <input type="hidden" name="img_id" value="<%= sample["id"] %>">
+                <input type="hidden" name="img_id" value="<%=sample["id"] %>">
                 <% all_options.each do |name| %>
                     <input type="radio" id="svar" name="answer" value="answer">
                     <label for="svar"><%= name %></label><br>
