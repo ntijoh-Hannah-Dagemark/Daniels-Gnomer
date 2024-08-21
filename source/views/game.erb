@@ -36,8 +36,6 @@
     <% wrong_names = names.reject { |name| name == random_name }.sample(3) %>
     <% all_options = [random_name, *wrong_names].shuffle %>
 
-    <img src="<%= random_image %>" alt="Bild" class="img_game">
-
     <form> 
         <input type="hidden" name="img_id" value="<%= sample["id"] %>">
         <% all_options.each do |name| %>
