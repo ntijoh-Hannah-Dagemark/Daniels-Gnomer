@@ -5,23 +5,24 @@
 <% end %>
 
 <%sample = @people_db.sample%>
+<%print "Sample is #{sample}"%>
 <%random_image = sample["filepath"]%>
 <img src="<%=random_image%>" alt="Bild" class="img_game">
 
 <%if @game_id == "1"%>
     <form method="post"> 
-        <input type="hidden" name="img_id" value="<%sample["id"]%>">
+        <input type="hidden" name="img_id" value="<%=sample["id"]%>">
         <select placeholder = "namn" name = "answer" required> 
             <option disabled selected value> -- Välj ett namn -- </option>
             <%@people_db.each do |people|%>
-            <option value="<%=people["name"]%>%"><%=people["name"]%></option>
+            <option value="<%=people["name"]%>"><%=people["name"]%></option>
             <%end%> 
         </select>
             <input type="submit" value="Rätta">
     </form>
 <%elsif @game_id == "2"%>
     <form method="post"> 
-        <input type="hidden" name="img_id" value="<%sample["id"]%>">
+        <input type="hidden" name="img_id" value="<%=sample["id"]%>">
         <input type="text" name="answer">
         <input type="submit" value="Rätta">
     </form>
