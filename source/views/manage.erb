@@ -31,13 +31,26 @@
         ut det istället för att bara göra skärmen tom. 
 
     </script>
+
+    <script>
+    let content = document.queryselector('.manage-db-content').innerHTML;
+
+    content = ``;
+
+    console.log("<%= @db_content %>");
+</script>
 -->
 
+<%= 
+    people = @db_content;
+%>
 
+<p><%= people %></p>
 
 
 
 </div>
+
 <div class="manage-interface">
 
     <div class="manage-interface-container">
