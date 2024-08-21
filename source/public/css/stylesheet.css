@@ -1,3 +1,270 @@
+/*
+Game Stuff
+*/
+
+#img_game {
+  height: 200px;
+  width: auto;
+}
+
+/*
+Index stuff
+*/
+
+html, body {
+  height: 100%;
+  margin: 0;
+  background-color: white;
+}
+
+.index-container {
+  display: flex;
+  margin-top: 2%
+}
+
+.index-item {
+  flex-grow: 5;
+  height: 100px;
+  text-align: center;
+}
+
+.index-item2 {
+  flex-grow: 1;
+  height: 100px;
+}
+
+.index-item + .index-item2 {
+  margin-left: 2%;
+}
+.index-grid2x2 {
+  min-height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+.index-grid2x2 > div {
+  display: flex; 
+  flex-basis: calc(50% - 40px);  
+  justify-content: center;
+  flex-direction: column;
+}
+.index-grid2x2 > div > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.index-box { margin: 20px; }
+.index-box1 { background-color: red; }
+.index-box2 { background-color: orange; }
+.index-box3 { background-color: purple; }
+.index-box4 { background-color: grey; }
+
+
+/*
+    Database content
+*/
+
+.manage-db-content {
+  width: 70%;
+}
+
+.manage-item {
+  margin-top: 50px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
+}
+
+.manage-db-id {
+  font-size: 40px;
+  margin-right: 40px;
+  border-right: 1px solid black;
+  padding-right: 20px;
+}
+
+.manage-db-picture {    
+  width: 150px;
+  height: 150px;
+  margin-right: 40px;
+}
+
+.manage-db-name {
+  font-size: 40px;
+  border-left: 1px solid black;
+  padding-left: 20px;
+}
+
+/*
+  Manage Interface
+*/
+
+.manage-interface {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  position: fixed;
+  left: 70%;
+  right: 0%;
+  top: 0%;
+  bottom: 0%;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Horisontell centrering */
+}
+
+.manage-interface-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/*
+  Submit form
+*/
+
+.manage-submit-form {
+  box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.75);
+  border-radius: 60px;
+  width: 400px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.manage-submit-file-upload-button {
+  width: 160px;
+  font-size: 30px;
+  margin-top: 50px;
+  padding: 0px;
+}
+
+.manage-submit-name-field {
+  margin-top: auto;
+  margin-bottom: auto;
+  font-size: 24px;
+  color: gray;
+  border-style: solid;
+  border: 1px solid black;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 8px;
+  border-radius: 10px;
+}
+
+.manage-submit-person-button {
+  margin-bottom: 50px;
+  font-size: 24px;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+
+  background-color: white;
+  border-style: solid;
+  border: 1px solid black;
+  border-radius: 40px;
+}
+
+/*
+  Delete person
+*/
+
+.manage-delete-form {
+  box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.75);
+  border-radius: 60px;
+  width: 400px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.manage-delete-number-field {
+  width: 160px;
+  font-size: 30px;
+  margin-top: 50px;
+
+  color: gray;
+  border-style: solid;
+  border: 1px solid black;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 8px;
+  border-radius: 10px;
+}
+
+.manage-delete-form-spacer {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.manage-delete-person-button {
+  margin-bottom: 50px;
+  font-size: 24px;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background-color: white;
+  border-style: solid;
+  border: 1px solid black;
+  border-radius: 40px;
+}
+
+/*
+  Ladda in klassen
+*/
+
+.manage-default-people {
+  box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.75);
+  border-radius: 60px;
+  width: 400px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.manage-default-people-link {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.manage-default-people-link {
+  font-size: 18px;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: white;
+  border-style: solid;
+  border: 1px solid black;
+  border-radius: 40px;
+}
+
+/*
+  Spacer
+*/
+
+.manage-spacer {
+  height: 100px;
+}
+
+/*
+  POPUP MANAGERS
+*/
+
 .notice {
     background:rgba(100,100,100,0.1);
     width:60vw;
