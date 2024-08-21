@@ -5,13 +5,6 @@ class Seeder
 def self.seed!
     drop_tables
     create_tables
-
-
-    # FOR DEVELOPMENT
-    seed_tables
-    # FOR DEVELOPMENT
-
-
 end
 
 def self.db
@@ -33,26 +26,5 @@ def self.create_tables
         filepath TEXT NOT NULL
     )')
 end
-
-
-
-# FOR DEVELOPMENT
-def self.seed_tables
-
-    people = [
-        {name: 'Hej1', filepath: '/img/1.png'},
-        {name: 'Hej2', filepath: '/img/2.png'},
-        {name: 'Hej3', filepath: '/img/3.png'},
-        {name: 'Hej4', filepath: '/img/4.png'},
-    ]
-
-    people.each do |people|
-        db.execute('INSERT INTO people (name, filepath) VALUES (?,?)', [people[:name], people[:filepath]])
-    end
-
-end
-# FOR DEVELOPMENT
-
-
 
 end
