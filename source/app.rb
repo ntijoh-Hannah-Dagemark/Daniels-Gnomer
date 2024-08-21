@@ -18,7 +18,7 @@ class App < Sinatra::Base
     get '/manager/default' do
       load "./db/default.rb"
       flash[:success] = "Database Defaulted Successfully"
-      redirect '/index'
+      redirect '/manage'
     end
 
     get '/' do
@@ -38,7 +38,12 @@ class App < Sinatra::Base
     end
 
     get '/manage' do
-        @db_content = db.execute("SELECT * FROM people")
+        result = db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name=?;", ["people"])
+        if result.empty?
+          @db_content = "empty"
+        else
+            @db_content = db.execute("SELECT * FROM people")
+        end
         erb :manage
     end
 
