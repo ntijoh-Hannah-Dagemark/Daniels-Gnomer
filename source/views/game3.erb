@@ -11,13 +11,13 @@
 <% wrong_names = names.reject { |name| name == random_name }.sample(3) %>
 <% all_options = [random_name, *wrong_names].shuffle %>
 
-<img src="<%= random_image %>" alt="Bild">
+<img src="<%= random_image %>" alt="Bild" class="img_game">
 
 <form> 
     <input type="hidden" name="img_id" value="<%= sample["id"] %>">
-    <% all_options.each_with_index do |name, index| %>
-        <input type="radio" id="svar<%= index + 1 %>" name="answer" value="answer<%= index + 1 %>">
-        <label for="svar<%= index + 1 %>"><%= name %></label><br>
+    <% all_options.each do |name| %>
+        <input type="radio" id="svar" name="answer" value="answer">
+        <label for="svar"><%= name %></label><br>
     <% end %>
     <input type="submit" value="Rätta">
 </form>
