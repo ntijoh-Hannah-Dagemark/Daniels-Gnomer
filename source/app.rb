@@ -53,7 +53,12 @@ class App < Sinatra::Base
     if session[:user_id].nil?
       redirect '/login/login'
     end
-    @db_content = db.execute('SELECT * FROM people') || 'empty'
+    result = db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name=?;", ["people"])
+    if result.empty?
+      @db_content = "empty"
+    else
+        @db_content = db.execute("SELECT * FROM people")
+    end
     erb :manage
   end
 
