@@ -42,6 +42,14 @@ class App < Sinatra::Base
     end
   end
 
+  # Remove a person with given ID
+  post '/manage/remove-person' do
+    db.execute('DELETE FROM people WHERE id = ?', params['number'])
+
+    flash[:success] = "Person with ID #{params['number']} successfully removed"
+    redirect '/manage'
+  end
+
   # Get the next ID for new entries
   def next_id
     result = db.execute('SELECT id FROM people ORDER BY id DESC LIMIT 1').first
@@ -53,7 +61,12 @@ class App < Sinatra::Base
     if session[:user_id].nil?
         redirect '/login/login'
     end
-    @db_content = db.execute('SELECT * FROM people') || 'empty'
+    result = db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name=?;", ["people"])
+    if result.empty?
+      @db_content = "empty"
+    else
+        @db_content = db.execute("SELECT * FROM people")
+    end
     erb :manage
   end
 
@@ -75,13 +88,16 @@ class App < Sinatra::Base
   # Handle user login
   def handle_login
     user = db.execute('SELECT * FROM users WHERE username = ?', params['username']).first
+    print("User is #{user}")
     if user.nil?
       flash[:notice] = 'Username not found'
       redirect '/login/login'
     end
 
     pass_encrpt = BCrypt::Password.new(user['password'])
-    if params['password'] == pass_encrpt
+    print("Comparing #{params['password']} to #{pass_encrpt}")
+    if pass_encrpt == params['password'] 
+        flash[:success] = "Logged in Successfully"
       session[:user_id] = user['id']
       redirect '/'
     else
@@ -122,13 +138,14 @@ class App < Sinatra::Base
   end
 
   # Post answer to game
-  post '/game/1' do
+  post '/game' do
+    game_id = params["game_id"]
     ansr = params['answer']
     imgid = params['img_id']
     correct = db.execute('SELECT name FROM people WHERE id = ?', imgid).first['name']
 
     flash[:notice] = (ansr == correct) ? 'Correct' : "Incorrect, it should be #{correct}"
-    redirect '/game/1'
+    redirect "/game/#{game_id}"
   end
 
   # --- Miscellaneous ---
