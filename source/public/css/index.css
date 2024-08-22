@@ -1,3 +1,7 @@
+*{
+    font-family: 'Times New Roman', Times, serif;
+}
+
 .game-design {
     display: flex;
     justify-content: center;
@@ -25,7 +29,7 @@ footer{
 
 /* Container som centrerar boxen */
 #login-register-container {
-    position: fixed; /* Fäster containern på en fast position */
+    position: absolute; /* Fäster containern på en fast position */
     top: 50%; /* Positionerar containern vertikalt i mitten */
     left: 50%; /* Positionerar containern horisontellt i mitten */
     transform: translate(-50%, -50%); /* Flyttar containern så att dess mittpunkt är vid 50%, 50% */
@@ -57,19 +61,20 @@ footer{
 #login-register-container input[type="submit"] {
     width: 100%;
     padding: 10px;
-    background-color: #007bff; /* Blå bakgrundsfärg för knappen */
+    background-color: lightskyblue; /* Blå bakgrundsfärg för knappen */
     color: white; /* Vit textfärg på knappen */
     border: none; /* Ingen rand runt knappen */
     border-radius: 5px; /* Rundade hörn på knappen */
+    font-size: 16px;
     cursor: pointer; /* Visar en hand när man hovrar över knappen */
 }
 
 #login-register-container input[type="submit"]:hover {
-    background-color: #0056b3; /* Mörkare blå färg när man hovrar över knappen */
+    background-color: lightskyblue; /* Mörkare blå färg när man hovrar över knappen */
 }
 
 #login-register-container a {
-    color: #007bff; /* Blå färg på länkar */
+    color: lightskyblue; /* Blå färg på länkar */
     text-decoration: none; /* Ingen understrykning på länkar */
 }
 
