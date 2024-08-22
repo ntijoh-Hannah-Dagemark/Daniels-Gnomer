@@ -18,6 +18,7 @@ end
 def self.drop_tables
     db.execute('DROP TABLE IF EXISTS people')
     db.execute('DROP TABLE IF EXISTS users')
+    db.execute('DROP TABLE IF EXISTS ratings')
 end
 
 def self.create_tables
@@ -31,6 +32,12 @@ def self.create_tables
         username TEXT NOT NULL,
         password TEXT NOT NULL
     )')
+    db.execute('CREATE TABLE ratings(
+        person_id INTEGER NOT NULL,
+        user_id INTEGER NOT NULL,
+        rating INTEGER NOT NULL,
+        PRIMARY KEY (person_id, user_id)
+        )')
 end
 
 end
