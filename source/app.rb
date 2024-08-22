@@ -142,12 +142,34 @@ class App < Sinatra::Base
     game_id = params["game_id"]
     ansr = params['answer']
     imgid = params['img_id']
+    user_id = session[:user_id]
+
     correct = db.execute('SELECT name FROM people WHERE id = ?', imgid).first['name']
 
-    flash[:notice] = (ansr == correct) ? 'Correct' : "Incorrect, it should be #{correct}"
+    if ansr == correct
+        flash[:notice] = 'Correct'
+        adjust_rating(imgid, user_id, 2)
+    else
+        flash[:notice] = "Incorrect, it should be #{correct}"
+        adjust_rating(imgid, user_id, -2)  
+    end    
+
     redirect "/game/#{game_id}"
   end
 
+  def adjust_rating(person_id, user_id, adjustment)
+    
+    existing_rating = db.execute('SELECT rating FROM ratings WHERE person_id = ? AND user_id = ?', person_id, user_id).first
+
+    if existing_rating
+      
+        new_rating = existing_rating['rating'] + adjustment
+        db.execute('UPDATE ratings SET rating = ? WHERE person_id = ? AND user_id = ?', new_rating, person_id, user_id)
+    else
+
+        db.execute('INSERT INTO ratings (person_id, user_id, rating) VALUES (?,?,?)', person_id, user_id, adjustment)
+    end
+  end
   # --- Miscellaneous ---
 
   # Set default database
