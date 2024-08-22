@@ -52,6 +52,14 @@ class App < Sinatra::Base
         redirect '/manage'
     end
 
+    post "/login" do
+      bonkers = 1
+      print (bonkers)
+    end
+    get '/login' do
+      erb :login
+    end
+
     get '/' do
         ##stuff
         # erb: (page)
