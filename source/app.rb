@@ -51,7 +51,7 @@ class App < Sinatra::Base
   # Manage interface - show all people
   get '/manage' do
     if session[:user_id].nil?
-      redirect '/login/login'
+        redirect '/login/login'
     end
     @db_content = db.execute('SELECT * FROM people') || 'empty'
     erb :manage
@@ -156,6 +156,10 @@ class App < Sinatra::Base
   get '/index' do
     redirect '/login/login' if session[:user_id].nil?
     erb :index
+  end
+
+  get '/profile' do
+    erb :profile
   end
 
   # Utility to check if a table exists
