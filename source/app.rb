@@ -42,6 +42,14 @@ class App < Sinatra::Base
     end
   end
 
+  # Remove a person with given ID
+  post '/manage/remove-person' do
+    db.execute('DELETE FROM people WHERE id = ?', params['number'])
+
+    flash[:success] = "Person with ID #{params['number']} successfully removed"
+    redirect '/manage'
+  end
+
   # Get the next ID for new entries
   def next_id
     result = db.execute('SELECT id FROM people ORDER BY id DESC LIMIT 1').first
