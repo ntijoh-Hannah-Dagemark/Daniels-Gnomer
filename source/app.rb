@@ -75,13 +75,16 @@ class App < Sinatra::Base
   # Handle user login
   def handle_login
     user = db.execute('SELECT * FROM users WHERE username = ?', params['username']).first
+    print("User is #{user}")
     if user.nil?
       flash[:notice] = 'Username not found'
       redirect '/login/login'
     end
 
     pass_encrpt = BCrypt::Password.new(user['password'])
+    print("Comparing #{params['password']} to #{pass_encrpt}")
     if params['password'] == pass_encrpt
+        flash[:success] = "Logged in Successfully"
       session[:user_id] = user['id']
       redirect '/'
     else

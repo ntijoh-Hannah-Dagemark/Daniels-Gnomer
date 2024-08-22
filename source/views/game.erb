@@ -1,9 +1,3 @@
-<% if flash[:notice] %>
-    <div class="flash notice">
-        <%= flash[:notice]%>
-    </div>
-<% end %>
-
 <%if @game_id == "1" || @game_id == "2" || @game_id == "3"%>
     <%sample = @people_db.sample%>
     <%random_image = sample["filepath"]%>
