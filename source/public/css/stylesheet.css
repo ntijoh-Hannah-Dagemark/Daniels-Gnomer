@@ -11,22 +11,35 @@ Game Stuff
 Index stuff
 */
 
-html, body {
-  height: 100vh;
+html{
+
+}
+
+body {
   margin: 0;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-area: 
+  "he"
+  "bo"
+  "fo";
+  grid-template-columns: 100%;
+  grid-template-rows: 100px auto 60px;
   background-color: white;
 }
 
+#main-page{
+  grid-area: "bo";
+}
+
 .index-container {
+  grid: "he";
   display: flex;
   align-items: center; /* Center items vertically */
-  height: 100vh; /* Full height of the viewport */
+  height: 70px; /* Full height of the viewport */
   position: relative; /* To allow absolute positioning within the container */
   background-color: ghostwhite;
   border: 7px double black;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .index-item {

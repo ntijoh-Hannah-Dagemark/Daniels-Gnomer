@@ -15,6 +15,7 @@
 }
 
 footer{
+    grid-area: "fo";
     background-color: antiquewhite;
     height: 35px;
     text-align: center;
