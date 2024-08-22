@@ -22,3 +22,57 @@ footer{
     border: 1px double grey;
     margin-top: auto;
 }
+
+/* Container som centrerar boxen */
+#login-register-container {
+    position: fixed; /* Fäster containern på en fast position */
+    top: 50%; /* Positionerar containern vertikalt i mitten */
+    left: 50%; /* Positionerar containern horisontellt i mitten */
+    transform: translate(-50%, -50%); /* Flyttar containern så att dess mittpunkt är vid 50%, 50% */
+    display: flex;
+    flex-direction: column; /* Gör så att formulären och länkarna placeras vertikalt */
+    align-items: center; /* Centrerar innehållet horisontellt inom containern */
+    padding: 20px;
+    background-color: #fff; /* Vit bakgrundsfärg för boxen */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Skugga för att ge djup */
+    border-radius: 10px; /* Rundade hörn */
+    width: 100%;
+    max-width: 400px; /* Maximal bredd på boxen */
+}
+
+/* Stil för formulär och länkar */
+#login-register-container form {
+    width: 100%; /* Gör formulären fullbredd inom boxen */
+    margin-bottom: 20px; /* Avstånd mellan formulären och länkarna */
+}
+
+#login-register-container input[type="text"] {
+    width: calc(100% - 22px); /* Gör att textinmatningsfälten fyller boxen minus padding och border */
+    padding: 10px;
+    margin-bottom: 10px; /* Avstånd mellan fälten */
+    border: 1px solid #ccc; /* Rand runt fälten */
+    border-radius: 5px; /* Rundade hörn på fälten */
+}
+
+#login-register-container input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff; /* Blå bakgrundsfärg för knappen */
+    color: white; /* Vit textfärg på knappen */
+    border: none; /* Ingen rand runt knappen */
+    border-radius: 5px; /* Rundade hörn på knappen */
+    cursor: pointer; /* Visar en hand när man hovrar över knappen */
+}
+
+#login-register-container input[type="submit"]:hover {
+    background-color: #0056b3; /* Mörkare blå färg när man hovrar över knappen */
+}
+
+#login-register-container a {
+    color: #007bff; /* Blå färg på länkar */
+    text-decoration: none; /* Ingen understrykning på länkar */
+}
+
+#login-register-container a:hover {
+    text-decoration: underline; /* Understrykning när man hovrar över länken */
+}
