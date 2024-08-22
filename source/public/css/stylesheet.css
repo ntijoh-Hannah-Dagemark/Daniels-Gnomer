@@ -22,6 +22,9 @@ body {
   grid-template-rows: 100px 1fr 60px;
   background-color: white;
   height: 100%;
+  background-image: url("/img/background.jpg");
+  background-size: cover;
+  background-position: center;
 }
 
 #main-page{
@@ -35,7 +38,7 @@ body {
   align-items: center; /* Center items vertically */
   height: 70px; /* Full height of the viewport */
   position: relative; /* To allow absolute positioning within the container */
-  background-color: ghostwhite;
+  background-color: lightgreen;
   border: 7px double black;
   margin-bottom: 20px;
 }
@@ -102,6 +105,7 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
+  background-color: white;
 }
 
 .index-box:hover {

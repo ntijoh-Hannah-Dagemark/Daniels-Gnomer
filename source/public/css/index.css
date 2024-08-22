@@ -20,11 +20,12 @@
 
 footer{
     grid-area: "fo";
-    background-color: antiquewhite;
+    background-color: lightgreen;
     height: 35px;
     text-align: center;
-    border: 1px double grey;
+    border-top: 4px solid black;
     margin-top: auto;
+    padding-bottom: 15px;
 }
 
 /* Container som centrerar boxen */
@@ -50,7 +51,7 @@ footer{
     margin-bottom: 20px; /* Avstånd mellan formulären och länkarna */
 }
 
-#login-register-container input[type="text"] {
+#login-register-container input[type="text"], #login-register-container input[type="password"] {
     width: calc(100% - 22px); /* Gör att textinmatningsfälten fyller boxen minus padding och border */
     padding: 10px;
     margin-bottom: 10px; /* Avstånd mellan fälten */
