@@ -238,26 +238,168 @@
     height: 100px;
 }
 
-/*
-    Smaller size screen
+
+    /*Smaller size screen*/
 
 
-    @media only screen and (max-width: 200px) {
-    .manage-submit-form {
-      height: 300px;
-    }
-  
-    .manage-delete-form {
-      height: 200px;
-    }
+    @media screen and (max-width: 1500px) {
 
-    .manage-default-people {
-        height: 200px;
-    }
-
-    .manage-spacer {
-        height: 0px;
-    }
+        
+        .manage-submit-form {
+            box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.75);
+            border-radius: 60px;
+            width: 300px;
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .manage-submit-file-upload-button {
+            width: 80px;
+            font-size: 10px;
+            margin-top: 30px;
+            padding: 0px;
+            cursor: pointer;
+        }
+        
+        .manage-submit-name-field {
+            margin-top: auto;
+            margin-bottom: auto;
+            font-size: 18px;
+            color: gray;
+            border-style: solid;
+            border: 1px solid black;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            padding-left: 8px;
+            border-radius: 10px;
+        }
+        
+        .manage-submit-person-button {
+            margin-bottom: 50px;
+            font-size: 18px;
+            padding-left: 40px;
+            padding-right: 40px;
+            padding-top: 12px;
+            padding-bottom: 12px;
+            cursor: pointer;
+            background-color: white;
+            border-style: solid;
+            border: 1px solid black;
+            border-radius: 40px;
+        }
+        
+        /*
+            Delete person
+        */
+        
+        .manage-delete-form {
+            box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.75);
+            border-radius: 60px;
+            width: 300px;
+            height: 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .manage-delete-number-field {
+            width: 80px;
+            font-size: 30px;
+            margin-top: 20px;
+        
+            color: gray;
+            border-style: solid;
+            border: 1px solid black;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            padding-left: 8px;
+            border-radius: 10px;
+        }
+        
+        .manage-delete-form-spacer {
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+        
+        .manage-delete-person-button {
+            margin-bottom: 50px;
+            font-size: 18px;
+            padding-left: 40px;
+            padding-right: 40px;
+            padding-top: 12px;
+            padding-bottom: 12px;
+            background-color: white;
+            border-style: solid;
+            border: 1px solid black;
+            border-radius: 40px;
+            cursor: pointer;
+        }
+        
+        /*
+            Ladda in klassen
+        */
+        
+        .manage-default-people {
+            box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.75);
+            border-radius: 60px;
+            width: 300px;
+            height: 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .manage-default-people-link-new {
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+        
+        .manage-default-people-button {
+            margin-top: auto;
+            margin-bottom: auto;
+            font-size: 14px;
+            padding-left: 40px;
+            padding-right: 40px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            background-color: white;
+            border-style: solid;
+            border: 1px solid black;
+            border-radius: 40px;
+            cursor: pointer;
+        }
+        
+        /*
+            Radera alla
+        */
+        
+        .manage-delete-all-people-link {
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+        
+        .manage-delete-all-people-button {
+            margin-top: auto;
+            margin-bottom: auto;
+            font-size: 14px;
+            padding-left: 40px;
+            padding-right: 40px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            background-color: white;
+            border-style: solid;
+            border: 1px solid black;
+            border-radius: 40px;
+            cursor: pointer;
+        }
+        .manage-spacer {
+            height: 30px;
+        }
 }
-*/
+
 
