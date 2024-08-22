@@ -4,12 +4,14 @@
     </div>
 <% end %>
 
-<%sample = @people_db.sample%>
-<%random_image = sample["filepath"]%>
+<%if @game_id == "1" || @game_id == "2" || @game_id == "3"%>
+    <%sample = @people_db.sample%>
+    <%random_image = sample["filepath"]%>
 
-<div class="game-design">
-    <div class="game-more-design">
+    <div class="game-design">
+        <div class="game-more-design">
             <img src="<%=random_image%>" alt="Bild" class="img_game">
+<%end%>
 
 <%if @game_id == "1"%>
     <form method="post"> 
