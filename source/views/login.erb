@@ -1,0 +1,29 @@
+<%if  1 == 1%>
+    <h2>
+        Logga in
+    </h2>
+    <form method="post"> 
+        <input type="hidden" name="user-value" value="login">
+        <input type="text" name="username" placeholder="Användarnamn" required>
+        <input type="text" name="password" placeholder="Lösenord" required>
+        <input type="submit" value="Logga in">
+    </form>
+    <form>
+        <input type="hidden" name="user-value" value="register">
+        <input type="submit" value="Skapa ny användare">
+    </form>
+<%end%>
+
+<%if @login != true%>
+    <form method="post"> 
+        <input type="hidden" name="user-value" value="register">
+        <input type="text" name="username" placeholder="Användarnamn" required>
+        <input type="text" name="password" placeholder="Lösenord" required>
+        <input type="text" name="password-check" placeholder="Upprepa lösenord" required>
+        <input type="submit" value="Skapa användare">
+    </form>
+    <form>
+        <input type="hidden" name="user-value" value="login">
+        <input type="submit" value="Tillbaka">
+    </form>
+<%end%>
