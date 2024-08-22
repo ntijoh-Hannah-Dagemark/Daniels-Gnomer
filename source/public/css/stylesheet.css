@@ -2,10 +2,77 @@
 Game Stuff
 */
 
-.img_game {
-  height: 200px;
-  width: auto;
+/* Container to center the game-design box */
+.game-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Full viewport height */
+  margin: 0;
 }
+
+/* Style for the game-design box */
+.game-design {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  max-width: 600px;
+  padding: 20px;
+  background-color: #ffffff; /* Background color for the box */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+  text-align: center;
+}
+
+/* Style for images inside the game-design box */
+.game-design .img_game {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px; /* Rounded corners on images */
+  margin-bottom: 20px;
+  border: 8px lightgreen ridge;
+  box-sizing: border-box;
+}
+
+/* Style for forms within the game-design box */
+.game-design form {
+  width: 100%;
+}
+
+/* Style for select and input elements in the form */
+.game-design select,
+.game-design input[type="text"],
+.game-design input[type="submit"] {
+  display: block;
+  width: calc(100% - 22px); /* Adjust for padding */
+  padding: 10px;
+  margin: 10px auto;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+}
+
+/* Style for submit button */
+.game-design input[type="submit"] {
+  background-color: lightskyblue; /* Background color */
+  color: #ffffff; /* Text color */
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Style for radio buttons inside the form */
+.game-design input[type="radio"] {
+  margin-right: 10px;
+}
+
+/* Style for labels of radio buttons */
+.game-design label {
+  display: inline-block;
+  margin: 5px 0;
+}
+
 
 /*
 Index stuff
@@ -33,44 +100,38 @@ body {
 }
 
 .index-container {
-  grid: "he";
   display: flex;
-  align-items: center; /* Center items vertically */
-  height: 70px; /* Full height of the viewport */
-  position: relative; /* To allow absolute positioning within the container */
+  align-items: center; /* Centrera objekt vertikalt */
+  justify-content: space-between; /* Placera objekten i varsin ände med utrymme emellan */
+  height: 70px;
   background-color: lightgreen;
   border: 7px double black;
   margin-bottom: 20px;
+  padding: 0 20px; /* Lägg till padding för att ge utrymme mellan kanterna och innehållet */
 }
 
-.index-item {
-  position: absolute;
-  left: 20px; /* Adjust this value to control the left position */
+.index-item, .index-item2, .index-item3 {
   display: flex;
-  align-items: center; /* Center the content vertically */
+  align-items: center; /* Centrera innehållet vertikalt */
 }
 
 .index-item2 {
-  margin: 0 auto; /* This centers the h1 within the container */
-  display: flex;
-  align-items: center; /* Center the content vertically */
-  justify-content: center; /* Center content horizontally */
-  width: 100%; /* Ensure it spans full width to allow centering */
+  justify-content: center; /* Centrera h1 horisontellt */
+  flex-grow: 1; /* Låter h1 ta upp så mycket utrymme som möjligt för att centreras */
 }
 
 .header-text {
   font-size: 36px;
-  text-align: center;
   font-family: 'Times New Roman', Times, serif;
   font-weight: normal;
 }
 
-#header-link{
+#header-link {
   color: black;
-  text-decoration: none;
+  text-decoration: underline;
 }
 
-#header-link:hover{
+#header-link:hover {
   text-decoration: underline;
   color: lightskyblue;
   font-style: italic;
