@@ -17,6 +17,11 @@ class App < Sinatra::Base
 
     post "/manage/add-person" do
         uploadDir = "./public/img/"
+
+        file = params['fileupload']
+
+        print(file)
+
         if params[:file] && params[:file][:tempfile] && params[:file][:filename]
             fileV = params[:file]
             filename = fileV[:filename]
