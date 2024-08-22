@@ -19,13 +19,14 @@ body {
   "bo"
   "fo";
   grid-template-columns: 100%;
-  grid-template-rows: 100px auto 60px;
+  grid-template-rows: 100px 1fr 60px;
   background-color: white;
   height: 100%;
 }
 
 #main-page{
   grid-area: "bo";
+  min-height: 100vh;
 }
 
 .index-container {
