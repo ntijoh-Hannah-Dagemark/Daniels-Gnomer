@@ -18,22 +18,21 @@ class App < Sinatra::Base
     post "/manage/add-person" do
         uploadDir = "./public/img/"
 
-        file = params['fileupload']
+        if params['fileupload'] && params['fileupload']["tempfile"] && params['fileupload']["filename"]
+            file = params['fileupload']
+            filename = (db.execute("SELECT id FROM people ORDER BY id DESC LIMIT 1").first["id"]+1).to_s+".png"
+            tempfile = file["tempfile"]
+            name = params['name']
 
-        print(file)
-
-        if params[:file] && params[:file][:tempfile] && params[:file][:filename]
-            fileV = params[:file]
-            filename = fileV[:filename]
-            tempfile = fileV[:tempfile]
             filepath = File.join(uploadDir, filename)
+            relpath = "/img/#{filename}"
 
             FileUtils.cp(tempfile.path, filepath)
 
-            name = params[:name]
 
-            print("Adding #{filename} as #{name}\n")
-            db.execute("INSERT INTO people (name,filepath) VALUES (?,?)", [name, filepath])
+            print("Adding #{filename} as #{name} at #{relpath}\n")
+            db.execute("INSERT INTO people (name,filepath) VALUES (?,?)", [name, relpath])
+            redirect '/manage'
         else
             print("No file was found\n")
             flash[:notice] = "Failed to upload file: No file found"
