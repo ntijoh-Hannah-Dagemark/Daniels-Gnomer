@@ -83,7 +83,7 @@ class App < Sinatra::Base
 
     pass_encrpt = BCrypt::Password.new(user['password'])
     print("Comparing #{params['password']} to #{pass_encrpt}")
-    if params['password'] == pass_encrpt
+    if pass_encrpt == params['password'] 
         flash[:success] = "Logged in Successfully"
       session[:user_id] = user['id']
       redirect '/'
