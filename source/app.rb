@@ -15,6 +15,27 @@ class App < Sinatra::Base
         return @db
     end
 
+    post "/manage/add-person" do
+        uploadDir = "./public/img/"
+        if params[:file] && params[:file][:tempfile] && params[:file][:filename]
+            fileV = params[:file]
+            filename = fileV[:filename]
+            tempfile = fileV[:tempfile]
+            filepath = File.join(uploadDir, filename)
+
+            FileUtils.cp(tempfile.path, filepath)
+
+            name = params[:name]
+
+            print("Adding #{filename} as #{name}\n")
+            db.execute("INSERT INTO people (name,filepath) VALUES (?,?)", [name, filepath])
+        else
+            print("No file was found\n")
+            flash[:notice] = "Failed to upload file: No file found"
+            redirect '/manage'
+        end
+    end
+
     get '/manager/default' do
         $type = "default"
         load "./db/default.rb"
