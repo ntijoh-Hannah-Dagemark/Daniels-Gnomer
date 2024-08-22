@@ -148,26 +148,41 @@ class App < Sinatra::Base
 
     if ansr == correct
         flash[:notice] = 'Correct'
-        adjust_rating(imgid, user_id, 2)
+        adjust_rating(imgid, user_id, true)
     else
         flash[:notice] = "Incorrect, it should be #{correct}"
-        adjust_rating(imgid, user_id, -2)  
+        adjust_rating(imgid, user_id, false)  
     end    
 
     redirect "/game/#{game_id}"
   end
 
-  def adjust_rating(person_id, user_id, adjustment)
+  def adjust_rating(person_id, user_id, is_correct)
     
-    existing_rating = db.execute('SELECT rating FROM ratings WHERE person_id = ? AND user_id = ?', person_id, user_id).first
+    existing_rating = db.execute('SELECT pos_rating, neg_rating FROM ratings WHERE person_id = ? AND user_id = ?', [person_id, user_id]).first
 
     if existing_rating
-      
-        new_rating = existing_rating['rating'] + adjustment
-        db.execute('UPDATE ratings SET rating = ? WHERE person_id = ? AND user_id = ?', new_rating, person_id, user_id)
-    else
+        pos_rating = existing_rating['pos_rating']
+        neg_rating = existing_rating['neg_rating']
 
-        db.execute('INSERT INTO ratings (person_id, user_id, rating) VALUES (?,?,?)', person_id, user_id, adjustment)
+        if is_correct
+        pos_rating += 1
+        else
+        neg_rating += 1
+        end
+
+        total_attempts = pos_rating + neg_rating
+        avg_rating = ((pos_rating.to_f / total_attempts) * 10).round(1)
+
+        print("Updated rating: Positive - #{pos_rating}, Negative - #{neg_rating}, Average - #{avg_rating}\n")
+        db.execute('UPDATE ratings SET pos_rating = ?, neg_rating = ?, avg_rating = ? WHERE person_id = ? AND user_id = ?', [pos_rating, neg_rating, avg_rating, person_id, user_id])
+    else
+        pos_rating = is_correct ? 1 : 0
+        neg_rating = is_correct ? 0 : 1
+        avg_rating = is_correct ? 10.0 : 0.0
+
+        print("Created new rating: Positive - #{pos_rating}, Negative - #{neg_rating}, Average - #{avg_rating}\n")
+        db.execute('INSERT INTO ratings (person_id, user_id, pos_rating, neg_rating, avg_rating) VALUES (?, ?, ?, ?, ?)', [person_id, user_id, pos_rating, neg_rating, avg_rating])
     end
   end
   # --- Miscellaneous ---
@@ -198,6 +213,7 @@ class App < Sinatra::Base
   end
 
   get '/profile' do
+    @people_rated = db.execute('SELECT * FROM ratings WHERE user_id = ?', session[:user_id])
     erb :profile
   end
 

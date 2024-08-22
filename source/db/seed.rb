@@ -35,7 +35,9 @@ def self.create_tables
     db.execute('CREATE TABLE ratings(
         person_id INTEGER NOT NULL,
         user_id INTEGER NOT NULL,
-        rating INTEGER NOT NULL,
+        pos_rating INTEGER NOT NULL,
+        neg_rating INTEGER NOT NULL,
+        avg_rating FLOAT NOT NULL,
         PRIMARY KEY (person_id, user_id)
         )')
 end
