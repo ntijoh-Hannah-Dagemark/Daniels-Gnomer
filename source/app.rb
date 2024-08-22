@@ -53,11 +53,46 @@ class App < Sinatra::Base
     end
 
     post "/login" do
-      bonkers = 1
-      print (bonkers)
+        if params["user-value"] == "login"
+            usernme = params["username"]
+            passwrd = params["password"]
+            user = db.execute['SELECT * FROM users WHERE username = ?', usernme].first
+
+            if user == nil
+              flash[:notice] = "Username not found"
+              redirect "/login/login"
+            end
+
+            pass_encrpt = BCrypt::Password.new(user['password'])
+
+            if passwrd == pass_encrpt
+                session[:user_id] = user['id']
+                redirect "/"
+            else
+                flash[:notice] = "Password Incorrect."
+                redirect "/login/login"
+            end
+
+        elsif params["user-value"] == "register"
+            usernme = params['username']
+            passwrd = params['password']
+            passwrd_dubcheck = params['password-check']
+
+            if passwrd != passwrd_dubcheck
+                flash[:notice] = "Password Missmatch"
+                redirect "/login/signup"
+            end
+
+            hash_pass = BCrypt::Password.create(passwrd)
+
+            db.execute('INSERT INTO users (username, password) VALUES(?,?) RETURNING *', usernme, hash_pass)
+
+            redirect "/login/login"
+        end
     end
-    get '/login' do
-      erb :login
+    get '/login/:type' do |type|
+        @login = type
+        erb :login
     end
 
     get '/' do
