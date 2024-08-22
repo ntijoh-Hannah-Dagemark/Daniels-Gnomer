@@ -19,4 +19,5 @@ footer{
     height: 35px;
     text-align: center;
     border: 1px double grey;
+    margin-top: auto;
 }
