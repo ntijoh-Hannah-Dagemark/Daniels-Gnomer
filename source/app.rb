@@ -138,13 +138,14 @@ class App < Sinatra::Base
   end
 
   # Post answer to game
-  post '/game/1' do
+  post '/game' do
+    game_id = params["game_id"]
     ansr = params['answer']
     imgid = params['img_id']
     correct = db.execute('SELECT name FROM people WHERE id = ?', imgid).first['name']
 
     flash[:notice] = (ansr == correct) ? 'Correct' : "Incorrect, it should be #{correct}"
-    redirect '/game/1'
+    redirect "/game/#{game_id}"
   end
 
   # --- Miscellaneous ---
