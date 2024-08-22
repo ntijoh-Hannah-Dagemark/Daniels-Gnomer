@@ -237,3 +237,27 @@
 .manage-spacer {
     height: 100px;
 }
+
+/*
+    Smaller size screen
+
+
+    @media only screen and (max-width: 200px) {
+    .manage-submit-form {
+      height: 300px;
+    }
+  
+    .manage-delete-form {
+      height: 200px;
+    }
+
+    .manage-default-people {
+        height: 200px;
+    }
+
+    .manage-spacer {
+        height: 0px;
+    }
+}
+*/
+
