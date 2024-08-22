@@ -59,3 +59,22 @@ button:hover {
     text-align: center;
     color: red;
 }
+
+/* Add this to your existing CSS */
+#scoreboard {
+    margin-top: 15px;
+    list-style-type: none;
+    padding: 0;
+}
+
+#scoreboard li {
+    background-color: #e0e0e0;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+}
+
+h2 {
+    margin-top: 20px;
+    color: #007bff;
+}
