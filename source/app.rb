@@ -11,16 +11,52 @@ class App < Sinatra::Base
   enable :sessions
   register Sinatra::Flash
 
-  # Database connection
+  # --- Utility Functions
   def db
     @db ||= SQLite3::Database.new('./db/db.sqlite').tap do |db|
       db.results_as_hash = true
     end
   end
 
+  def next_id
+    result = db.execute('SELECT id FROM people ORDER BY id DESC LIMIT 1').first
+    result ? result['id'] + 1 : 1
+  end
+
+  def table_exists?(table_name)
+    result = db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name=?;", [table_name])
+    !result.empty?
+  end
+
   # --- Routes for managing people ---
 
-  # Add a person with an uploaded file
+  get '/manage' do
+    if session[:user_id].nil?
+        redirect '/login/login'
+    end
+
+    if !table_exists?('people')
+      @db_content = "empty"
+    else
+        @db_content = db.execute("SELECT * FROM people")
+    end
+    erb :manage
+  end
+
+  get '/manager/default' do
+    $type = "default"
+    load './db/default.rb'
+    flash[:success] = 'Database defaulted successfully'
+    redirect '/manage'
+  end
+
+  get '/manager/delete-all' do
+    $type = "delete"
+    load './db/default.rb'
+    redirect '/manage'
+  end
+  
+   
   post '/manage/add-person' do
 
     uploadDir = './public/img/'
@@ -44,7 +80,6 @@ class App < Sinatra::Base
     end
   end
 
-  # Remove a person with given ID
   post '/manage/remove-person' do
     db.execute('DELETE FROM people WHERE id = ?', params['number'])
 
@@ -52,29 +87,86 @@ class App < Sinatra::Base
     redirect '/manage'
   end
 
-  # Get the next ID for new entries
-  def next_id
-    result = db.execute('SELECT id FROM people ORDER BY id DESC LIMIT 1').first
-    result ? result['id'] + 1 : 1
-  end
 
-  # Manage interface - show all people
-  get '/manage' do
-    if session[:user_id].nil?
-        redirect '/login/login'
+  post '/manage/upload' do
+
+    print("\n\nZip bulk upload from user #{session[:user_id]} begun\n\n")
+  
+    if params[:zip_file].nil?
+      flash[:notice] = "No file found"
+      redirect '/manage'
     end
-
-    if !table_exists?('people')
-      @db_content = "empty"
-    else
-        @db_content = db.execute("SELECT * FROM people")
+  
+    if File.extname(params[:zip_file][:filename]) != '.zip'
+      flash[:notice] = "Uploaded file is not a ZIP file"
+      redirect '/manage'
     end
-    erb :manage
-  end
-
+  
+    temp_zip = params[:zip_file][:tempfile]
+    print "Temporary ZIP file path: #{temp_zip.path}\n"
+    print "Uploaded ZIP file details: #{params[:zip_file]}\n"
+  
+    upload_dir = 'public/uploads'
+    extraction_dir = File.join(upload_dir, 'extracted')
+    print "Upload directory: #{upload_dir}\n"
+    print "Extraction directory: #{extraction_dir}\n"
+  
+    unzip_command = "unzip -o #{temp_zip.path} -d #{extraction_dir}"
+    print "Running command: #{unzip_command}\n"
+    system(unzip_command)
+  
+    if $?.exitstatus != 0
+      flash[:notice] = "An error occurred while processing the ZIP file."
+      redirect '/manage'
+    end
+  
+    img_dir = 'public/img'
+    current_id = next_id
+    print "Starting ID for new entries: #{current_id}\n"
+  
+    Dir.glob(File.join(extraction_dir, '**', '*')).each do |file|
+      next unless File.file?(file) # Skip directories and other non-file entries
+  
+      print "Processing file: #{file}\n"
+      
+      original_filename = File.basename(file, File.extname(file))
+      extension = File.extname(file)
+      new_filename = "#{current_id}#{extension}"
+      relpath = "/img/#{new_filename}"
+      filepath = File.join(img_dir, new_filename)
+      
+      print "Original filename: #{original_filename}\n"
+      print "New filename: #{new_filename}\n"
+      print "Saving file to: #{filepath}\n"
+  
+      FileUtils.mv(file, filepath)
+      print "File moved and renamed to #{filepath}\n"
+  
+      db.execute("INSERT INTO people (name, filepath) VALUES (?, ?)", [original_filename, relpath])
+      print "Database entry created for: Name #{original_filename}, Filepath #{relpath}\n"
+  
+      current_id += 1
+    end
+  
+    print "ZIP file extraction and processing completed\n"
+  
+    redirect '/manage'
+  end  
+  
   # --- Routes for user authentication ---
 
-  # Handle user login and registration
+  get '/login' do
+    redirect '/login/login'
+  end
+
+  get '/login/:type' do |type|
+    if session[:user_id]
+      redirect("/")
+    end
+    @login = type
+    erb :login
+  end
+
   post '/login' do
     case params['user-value']
     when 'login'
@@ -87,7 +179,6 @@ class App < Sinatra::Base
     end
   end
 
-  # Handle user login
   def handle_login
     user = db.execute('SELECT * FROM users WHERE username = ?', params['username']).first
     print("User is #{user}")
@@ -108,7 +199,6 @@ class App < Sinatra::Base
     end
   end
 
-  # Handle user registration
   def handle_registration
     if params['password'] != params['password-check']
       flash[:notice] = 'Password mismatch'
@@ -120,21 +210,8 @@ class App < Sinatra::Base
     redirect '/login/login'
   end
 
-  # Show login or signup form
-  get '/login/:type' do |type|
-    if session[:user_id]
-      redirect("/")
-    end
-    @login = type
-    erb :login
-  end
-
-  get '/login' do
-    redirect '/login/login'
-  end
   # --- Routes for game functionality ---
 
-  # Show game page with ID
   get '/game/:id' do |id|
     if table_exists?('people')
       @people_db = db.execute('SELECT * FROM people')
@@ -145,7 +222,6 @@ class App < Sinatra::Base
     end
   end
 
-  # Post answer to game
   post '/game' do
     game_id = params["game_id"]
     ansr = params['answer']
@@ -193,29 +269,13 @@ class App < Sinatra::Base
         db.execute('INSERT INTO ratings (person_id, user_id, pos_rating, neg_rating, avg_rating) VALUES (?, ?, ?, ?, ?)', [person_id, user_id, pos_rating, neg_rating, avg_rating])
     end
   end
+
   # --- Miscellaneous ---
 
-  # Set default database
-  get '/manager/default' do
-    $type = "default"
-    load './db/default.rb'
-    flash[:success] = 'Database defaulted successfully'
-    redirect '/manage'
-  end
-
-  # Delete all entries from the database
-  get '/manager/delete-all' do
-    $type = "delete"
-    load './db/default.rb'
-    redirect '/manage'
-  end
-
-  # Home page redirection
   get '/' do
     redirect session[:user_id] ? '/index' : '/login/login'
   end
 
-  # Show index page
   get '/index' do
     redirect '/login/login' if session[:user_id].nil?
     erb :index
@@ -224,81 +284,5 @@ class App < Sinatra::Base
   get '/profile' do
     @people_rated = db.execute('SELECT * FROM ratings INNER JOIN people ON people.id = ratings.person_id WHERE user_id = ?', session[:user_id])
     erb :profile
-  end
-
-  # Utility to check if a table exists
-  def table_exists?(table_name)
-    result = db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name=?;", [table_name])
-    !result.empty?
-  end
-
-
-  post '/manage/upload' do
-
-    print("\n\nZip bulk upload from user #{session[:user_id]} begun\n\n")
-
-    # Check if a file has been uploaded and ensure it is a ZIP file
-    if params[:zip_file].nil?
-      flash[:notice] = "No file found"
-      redirect '/manage'
-    end
-
-    if File.extname(params[:zip_file][:filename]) != '.zip'
-      flash[:notice] = "Uploaded file is not a ZIP file"
-      redirect '/manage'
-    end
-
-    # Save the ZIP file temporarily
-    temp_zip = params[:zip_file][:tempfile]
-    print "Temporary ZIP file path: #{temp_zip.path}\n"
-    print "Uploaded ZIP file details: #{params[:zip_file]}\n"
-
-    # Create the directory for uploaded files if it doesn't exist
-    upload_dir = 'public/uploads'
-    print "Upload directory: #{upload_dir}\n"
-
-    # Define the extraction directory
-    extraction_dir = File.join(upload_dir, 'extracted')
-    FileUtils.mkdir_p(extraction_dir)
-    print "Extraction directory: #{extraction_dir}\n"
-
-    # Use system command to unzip the file
-    unzip_command = "unzip -o #{temp_zip.path} -d #{extraction_dir}"
-    print "Running command: #{unzip_command}\n"
-    system(unzip_command)
-
-    # Check if the unzip command was successful
-    if $?.exitstatus != 0
-      flash[:notice] = "An error occurred while processing the ZIP file."
-      redirect '/manage'
-    end
-
-    # Process extracted files
-    Dir.glob(File.join(extraction_dir, '**', '*')).each do |file|
-      next unless File.file?(file) # Skip directories and other non-file entries
-
-      print "Processing file: #{file}\n"
-      
-      # Extract filename and extension
-      filename_with_extension = File.basename(file)
-      filename_without_extension = File.basename(file, File.extname(file))
-      relpath = "/uploads/downloaded/#{filename_with_extension}"
-      filepath = File.join(upload_dir, 'downloaded', filename_with_extension)
-      
-      print "Filename without extension: #{filename_without_extension}\n"
-      print "Saving file to: #{filepath}\n"
-
-      # Move the file to the public folder
-      FileUtils.mv(file, filepath)
-
-      # Save the information in the database
-      db.execute("INSERT INTO people (name, filepath) VALUES (?, ?)", [filename_without_extension, relpath])
-      print "Database entry created for: #{filename_without_extension}, #{relpath}\n"
-    end
-
-    print "ZIP file extraction and processing completed\n"
-
-    # Redirect back to /manage after the upload is complete
-    redirect '/manage'
   end
 end
