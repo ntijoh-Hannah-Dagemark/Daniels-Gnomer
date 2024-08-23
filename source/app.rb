@@ -159,6 +159,14 @@ class App < Sinatra::Base
     redirect '/login/login'
   end
 
+  get '/logout' do
+    session.clear
+    
+    flash[:success] = 'You have been logged out successfully'
+    redirect '/login/login'
+  end
+  
+
   get '/login/:type' do |type|
     if session[:user_id]
       redirect("/")
@@ -282,7 +290,12 @@ class App < Sinatra::Base
   end
 
   get '/profile' do
-    @people_rated = db.execute('SELECT * FROM ratings INNER JOIN people ON people.id = ratings.person_id WHERE user_id = ?', session[:user_id])
-    erb :profile
+    if table_exists?("ratings")
+      @people_rated = db.execute('SELECT * FROM ratings INNER JOIN people ON people.id = ratings.person_id WHERE user_id = ?', session[:user_id])
+      erb :profile
+    else
+      flash[:notice] = "Database not found. Please default the database or contact administrator"
+      redirect '/manage'
+    end
   end
 end
