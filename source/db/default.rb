@@ -26,12 +26,15 @@ class Defaulter
     print "DELETING DATABASE\n"
     path = "./public/img"
     imgs = Dir.glob("#{path}/*.jpeg")
-    print "IDENTIFIED #{imgs.length} IMAGES TO DELETE\n"
+    imgs += Dir.glob("#{path}/*.png")
+    imgs += Dir.glob("#{path}/*.jpg")
+    print "IDENTIFIED #{imgs.length} IMAGES TO DELETE\n These are: #{imgs}\n"
     imgs.each do |img|
       FileUtils.rm(img)
     end
     db.execute("DROP TABLE IF EXISTS people")
-      print "DELETED FILES AND CLEARED DATABASE\n"
+    db.execute("DROP TABLE IF EXISTS ratings")
+    print "DELETED FILES AND CLEARED DATABASE\n"
   end
 
   def self.create
@@ -43,8 +46,9 @@ class Defaulter
     people = []
     imgs.each do |img|
       name = File.basename(img, '.jpeg')
-      people.append({name: "#{name}", filepath: "/img/defaults/#{name}.jpeg"})
-      print "Loaded #{name}\n"
+      FileUtils.cp(img, "./public/img/#{imgs.index(img)}.jpeg")
+      people.append({name: "#{name}", filepath: "/img/#{imgs.index(img)}.jpeg"})
+      print "Loaded #{name} as #{imgs.index(img)}\n"
     end
 
     people.each do |people|

@@ -44,6 +44,7 @@ GEM
     rerun (0.14.0)
       listen (~> 3.0)
     ruby2_keywords (0.0.5)
+    rubyzip (2.3.2)
     sinatra (3.2.0)
       mustermann (~> 3.0)
       rack (~> 2.2, >= 2.2.4)
@@ -87,6 +88,7 @@ DEPENDENCIES
   fileutils
   rack (~> 2.2.8)
   rerun
+  rubyzip
   sinatra
   sinatra-flash
   sqlite3
