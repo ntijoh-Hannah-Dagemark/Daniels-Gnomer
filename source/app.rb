@@ -277,6 +277,56 @@ class App < Sinatra::Base
         db.execute('INSERT INTO ratings (person_id, user_id, pos_rating, neg_rating, avg_rating) VALUES (?, ?, ?, ?, ?)', [person_id, user_id, pos_rating, neg_rating, avg_rating])
     end
   end
+  # --- Routes for profile management
+  get '/profile' do
+    if session[:user_id].nil?
+      flash[:notice] = 'Please log in before accessing this page'
+      redirect '/login/login'
+    end
+
+    if table_exists?("ratings")
+      @people_rated = db.execute('SELECT * FROM ratings INNER JOIN people ON people.id = ratings.person_id WHERE user_id = ?', session[:user_id])
+      erb :profile
+    else
+      flash[:notice] = "Database not found. Please default the database or contact administrator"
+      redirect '/manage'
+    end
+  end
+
+  post '/change-password' do
+    current_password = params['current-password']
+    new_password = params['new-password']
+    new_password_confirm = params['confirm-password']
+    
+    if current_password.nil? || new_password.nil? || new_password_confirm.nil?
+      flash[:notice] = 'All fields are required'
+      redirect '/profile'
+    end
+
+    if new_password != new_password_confirm
+      flash[:notice] = 'New passwords do not match'
+      redirect '/profile'
+    end
+
+    user = db.execute('SELECT * FROM users WHERE id = ?', session[:user_id]).first
+
+    if user.nil?
+      flash[:notice] = 'User not found with this ID. Contact admin'
+      redirect '/'
+    end
+
+    pass_encrpt = BCrypt::Password.new(user['password'])
+    if pass_encrpt != current_password
+      flash[:notice] = 'Current password is incorrect'
+      redirect '/profile'
+    end
+
+    hashed_password = BCrypt::Password.create(new_password)
+    db.execute('UPDATE users SET password = ? WHERE id = ?', hashed_password, session[:user_id])
+
+    flash[:success] = 'Password changed successfully'
+    redirect '/profile'
+  end
 
   # --- Miscellaneous ---
 
@@ -289,13 +339,4 @@ class App < Sinatra::Base
     erb :index
   end
 
-  get '/profile' do
-    if table_exists?("ratings")
-      @people_rated = db.execute('SELECT * FROM ratings INNER JOIN people ON people.id = ratings.person_id WHERE user_id = ?', session[:user_id])
-      erb :profile
-    else
-      flash[:notice] = "Database not found. Please default the database or contact administrator"
-      redirect '/manage'
-    end
-  end
 end
