@@ -26,7 +26,7 @@
                 <li>No scores yet.</li>
             <% else %>
                 <% @people_rated.each do |person| %>
-                    <li><strong>Person ID:</strong> <%= person["person_id"] %> - <strong>Rating:</strong> <%= person["avg_rating"] %></li>
+                    <li><%= person["name"] %> - <strong>Rating:</strong> <%= person["avg_rating"] %></li>
                 <% end %>
             <% end %>
         </ul>

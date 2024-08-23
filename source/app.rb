@@ -62,7 +62,7 @@ class App < Sinatra::Base
         redirect '/login/login'
     end
 
-    if table_exists?('people')
+    if !table_exists?('people')
       @db_content = "empty"
     else
         @db_content = db.execute("SELECT * FROM people")
@@ -219,13 +219,13 @@ class App < Sinatra::Base
   end
 
   get '/profile' do
-    @people_rated = db.execute('SELECT * FROM ratings WHERE user_id = ?', session[:user_id])
+    @people_rated = db.execute('SELECT * FROM ratings INNER JOIN people ON people.id = ratings.person_id WHERE user_id = ?', session[:user_id])
     erb :profile
   end
 
   # Utility to check if a table exists
   def table_exists?(table_name)
     result = db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name=?;", [table_name])
-    result.empty?
+    !result.empty?
   end
 end
