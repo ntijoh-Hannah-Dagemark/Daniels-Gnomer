@@ -121,12 +121,15 @@ class App < Sinatra::Base
   # Show login or signup form
   get '/login/:type' do |type|
     if session[:user_id]
-      route("/")
+      redirect("/")
     end
     @login = type
     erb :login
   end
 
+  get '/login' do
+    redirect '/login/login'
+  end
   # --- Routes for game functionality ---
 
   # Show game page with ID
