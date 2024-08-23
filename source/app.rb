@@ -81,11 +81,30 @@ class App < Sinatra::Base
   end
 
   post '/manage/remove-person' do
-    db.execute('DELETE FROM people WHERE id = ?', params['number'])
-
-    flash[:success] = "Person with ID #{params['number']} successfully removed"
+    person_id = params['number']
+    
+    if person_id.nil? || person_id.empty?
+      flash[:notice] = "Person ID is required."
+      redirect '/manage'
+    end
+  
+    person = db.execute('SELECT * FROM people WHERE id = ?', person_id).first
+  
+    if person
+      filepath = File.join('public', person['filepath'])
+      
+      FileUtils.rm(filepath) if File.exist?(filepath)
+      
+      db.execute('DELETE FROM people WHERE id = ?', person_id)
+      
+      flash[:success] = "Person with ID #{person_id} successfully removed"
+    else
+      flash[:notice] = "Person with ID #{person_id} not found."
+    end
+  
     redirect '/manage'
   end
+  
 
 
   post '/manage/upload' do
@@ -221,6 +240,9 @@ class App < Sinatra::Base
   # --- Routes for game functionality ---
 
   get '/game/:id' do |id|
+    if session[:user_id].nil?
+      redirect '/login/login'
+    end
     if table_exists?('people')
       @people_db = db.execute('SELECT * FROM people')
       @game_id = id
@@ -294,12 +316,12 @@ class App < Sinatra::Base
   end
 
   post '/change-password' do
-    current_password = params['current-password']
-    new_password = params['new-password']
-    new_password_confirm = params['confirm-password']
+    current_password = params["current_password"]
+    new_password = params["new_password"]
+    new_password_confirm = params["confirm_password"]
     
     if current_password.nil? || new_password.nil? || new_password_confirm.nil?
-      flash[:notice] = 'All fields are required'
+      flash[:notice] = "All fields are required. Currently there is #{current_password}(Current), #{new_password}(New), #{new_password_confirm}(Confirm)"
       redirect '/profile'
     end
 
@@ -322,7 +344,7 @@ class App < Sinatra::Base
     end
 
     hashed_password = BCrypt::Password.create(new_password)
-    db.execute('UPDATE users SET password = ? WHERE id = ?', hashed_password, session[:user_id])
+    db.execute('UPDATE users SET password = ? WHERE id = ?', [hashed_password, session[:user_id]])
 
     flash[:success] = 'Password changed successfully'
     redirect '/profile'
