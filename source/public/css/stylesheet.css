@@ -310,16 +310,33 @@ footer{
   width: auto;
 }
 
-
-
-
-
 /* Profile Container */
 
 .profile-container{
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/* Styling för Logga ut-knappen */
+.logout-button {
+  position: absolute; /* Placera knappen relativt till profilsektionen */
+  top: 100px; /* Justera avståndet från toppen */
+  right: 15px; /* Justera avståndet från höger kant */
+  color: black; /* Färg på texten */
+  font-size: 32px; /* Storlek på texten */
+  text-decoration: none; /* Ta bort understrykning */
+  font-weight: bold; /* Fetstil för texten */
+  cursor: pointer; /* Visa en handpekare vid hovring */
+  transition: color 0.3s ease; /* Mjuk övergång för färgändring */
+  background-color: white;
+  padding: 10px;
+  border: black double 4px;
+}
+
+.logout-button:hover {
+  color: lightskyblue;
+  font-style: italic; /* Mörkare blå färg vid hovring */
 }
 
 .profile-items {
