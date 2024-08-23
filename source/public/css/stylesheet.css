@@ -13,7 +13,7 @@ body {
   grid-template-rows: 100px 1fr 60px;
   background-color: white;
   height: 100%;
-  background-image: url("/img/background.jpg");
+  background-image: url("/img/statics/background.jpg");
   background-size: cover;
   background-position: center;
 }
