@@ -25,6 +25,12 @@
 
             <!-- Add Person Form -->
             <div class="manage-form-container">
+                <form action="/upload" method="post" enctype="multipart/form-data">
+                    <label for="zip_file">Ladda upp en ZIP-fil med bilder:</label>
+                    <input type="file" name="zip_file" id="zip_file" accept=".zip">
+                    <button type="submit">Ladda upp</button>
+                </form>
+
                 <form class="manage-submit-form" method="POST" action="/manage/add-person" enctype="multipart/form-data">
                     <div class="question-mark-container">
                     <span class="question-mark"><img src="/img/statics/info.png" class="info-image"></span>

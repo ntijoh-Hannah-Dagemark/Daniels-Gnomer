@@ -3,6 +3,8 @@ require 'sinatra/flash'
 require 'sqlite3'
 require 'fileutils'
 require 'bcrypt'
+require 'zip'
+require 'fileutils'
 require_relative 'db/seed'
 
 class App < Sinatra::Base
@@ -228,5 +230,46 @@ class App < Sinatra::Base
   def table_exists?(table_name)
     result = db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name=?;", [table_name])
     !result.empty?
+  end
+
+
+  # Route för att hantera filuppladdning
+  post '/manage/upload' do
+    # Kontrollera att en fil har laddats upp och att det är en ZIP-fil
+    if params[:zip_file].nil? || File.extname(params[:zip_file][:filename]) != '.zip'
+      return "<p>Var god ladda upp en ZIP-fil.</p><a href='/manage'>Tillbaka</a>"
+    end
+
+    # Spara ZIP-filen temporärt
+    temp_zip = params[:zip_file][:tempfile]
+    p temp_zip
+    p params[:zip_file]
+    p params[:tempfile]
+
+    # Skapa mappen för uppladdade filer om den inte finns
+    upload_dir = 'public/uploads'
+    FileUtils.mkdir_p(upload_dir)
+
+    # Extrahera ZIP-filen och spara bilderna
+    Zip::File.open(temp_zip) do |zip_file|
+      zip_file.each do |entry|
+        if entry.file? && ['.jpg', '.jpeg', '.png', '.gif'].include?(File.extname(entry.name).downcase)
+          # Ta bort filändelsen från filnamnet
+          filename_without_extension = File.basename(entry.name, File.extname(entry.name))
+
+          # Bestäm var filen ska sparas
+          filepath = File.join(upload_dir, entry.name)
+
+          # Spara bilden till mappen på servern
+          entry.extract(filepath) { true } # Överskriv om filen redan finns
+
+          # Spara informationen i databasen
+          db.execute("INSERT INTO people (name, filepath) VALUES (?, ?)", [filename_without_extension, filepath])
+        end
+      end
+    end
+
+    # Omdirigera tillbaka till /manage efter att uppladdningen är klar
+    redirect '/manage'
   end
 end
