@@ -203,7 +203,8 @@ class App < Sinatra::Base
 
   # Delete all entries from the database
   get '/manager/delete-all' do
-    db.execute('DROP TABLE IF EXISTS people')
+    $type = "delete"
+    load './db/default.rb'
     redirect '/manage'
   end
 
