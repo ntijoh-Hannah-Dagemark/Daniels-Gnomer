@@ -10,7 +10,7 @@ task :dev do
 end
 
 task :run do
-  #todo
+  sh 'bundle exec rackup --host 0.0.0.0 --port 8080'
 end
 
 task :test do
