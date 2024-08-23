@@ -1,16 +1,11 @@
 <div class="manage-body">
     <div class="manage-db-content">
-    
         <% if @db_content == "empty" %>
-
             <p class="manage-db-empty-text">
                 Databasen är tom :(
             </p>
-
         <% else %>
-
             <% @db_content.each do |f| %>
-
                 <div class="manage-item">
                     <div class="manage-db-id">
                         <p><%= f["id"] %></p>
@@ -22,18 +17,19 @@
                         <p><%= f["name"] %></p>
                     </div>
                 </div>
-
             <% end %>
-            
         <% end %>
-
     </div>
     <div class="manage-interface">
-
         <div class="manage-interface-container">
 
-            <div>
+            <!-- Add Person Form -->
+            <div class="manage-form-container">
                 <form class="manage-submit-form" method="POST" action="/manage/add-person" enctype="multipart/form-data">
+                    <div class="question-mark-container">
+                    <span class="question-mark"><img src="/img/statics/info.png" class="info-image"></span>
+                    <span class="hover-text">This form allows you to add a new person to the database.</span>
+                    </div>
                     <input class="manage-submit-file-upload-button" type="file" id="fileupload" name="fileupload">
                     <input class="manage-submit-name-field" type="text" id="name" name="name" placeholder="Namn: ">
                     <input class="manage-submit-person-button" type="submit" value="Lägg till">
@@ -42,8 +38,13 @@
 
             <div class="manage-spacer"></div>
 
-            <div>
+            <!-- Remove Person Form -->
+            <div class="manage-form-container">
                 <form class="manage-delete-form" method="POST" action="/manage/remove-person">
+                    <div class="question-mark-container">
+                    <span class="question-mark"><img src="/img/statics/info.png" class="info-image"></span>
+                    <span class="hover-text">These buttons allow you to load a default list of people or delete all people from the database.</span>
+                    </div>
                     <input class="manage-delete-number-field" type="number" id="number">
                     <div class="manage-delete-form-spacer"></div>
                     <input class="manage-delete-person-button" type="submit" value="Ta bort">
@@ -52,16 +53,22 @@
 
             <div class="manage-spacer"></div>
 
-            <div class="manage-default-people">
-                <a class="manage-default-people-link-new" href="/manager/default">
-                    <button class="manage-default-people-button">Ladda in klassen</button>
-                </a>
-                <a class="manage-delete-all-people-link" href="/manager/delete-all">
-                    <button class="manage-delete-all-people-button">Radera alla i listan</button>
-                </a>
+            <!-- Load/Remove Default People -->
+            <div class="manage-form-container">
+                <div class="manage-default-people">
+                    <div class="question-mark-container">
+                    <span class="question-mark"><img src="/img/statics/info.png" class="info-image"></span>
+                    <span class="hover-text">This is the text that shows up on hover.</span>
+                    </div>
+                    <a class="manage-default-people-link-new" href="/manager/default">
+                        <button class="manage-default-people-button">Ladda in klassen</button>
+                    </a>
+                    <a class="manage-delete-all-people-link" href="/manager/delete-all">
+                        <button class="manage-delete-all-people-button">Radera alla i listan</button>
+                    </a>
+                </div>
             </div>
 
         </div>
-
     </div>
 </div>

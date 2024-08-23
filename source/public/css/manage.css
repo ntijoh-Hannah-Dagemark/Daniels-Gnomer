@@ -407,3 +407,25 @@
 }
 
 
+.question-mark-container{
+    margin-top: 20px;
+}
+
+.hover-text {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #ccc;
+    z-index: 1;
+}
+
+/* Show the text when hovering over the question mark */
+.question-mark-container:hover .hover-text {
+    display: block;
+}
+
+.info-image{
+    height: 20px;
+    width: 20px;
+}
