@@ -309,3 +309,85 @@ footer{
   height: 200px;
   width: auto;
 }
+
+
+
+
+
+/* Profile Container */
+
+.profile-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-items {
+  background-color: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  width: 350px;
+  max-width: 100%; /* Ensures it doesn't overflow on smaller screens */
+  text-align: center;
+}
+
+/* Form Group */
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.profile-label {
+  display: block;
+  margin-bottom: 8px;
+  color: #555;
+}
+
+.profile {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+/* Button Styles */
+.profile-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.profile-button:hover {
+  background-color: #0056b3;
+}
+
+/* Scoreboard Styles */
+#scoreboard {
+  margin-top: 15px;
+  list-style-type: none;
+  padding: 0;
+  text-align: left;
+  max-height: 200px; /* Adjust the height as needed */
+  overflow-y: auto;  /* Enables vertical scrolling if content exceeds max height */
+  border: 1px solid #ddd; /* Optional: Adds a subtle border to the scoreboard box */
+  border-radius: 5px; /* Matches the border radius of the list items */
+}
+
+#scoreboard li {
+  background-color: #f9f9f9;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #333;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
