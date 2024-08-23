@@ -61,8 +61,8 @@ class App < Sinatra::Base
     if session[:user_id].nil?
         redirect '/login/login'
     end
-    result = db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name=?;", ["people"])
-    if result.empty?
+
+    if table_exists?('people')
       @db_content = "empty"
     else
         @db_content = db.execute("SELECT * FROM people")
@@ -120,6 +120,9 @@ class App < Sinatra::Base
 
   # Show login or signup form
   get '/login/:type' do |type|
+    if session[:user_id]
+      route("/")
+    end
     @login = type
     erb :login
   end
@@ -219,6 +222,7 @@ class App < Sinatra::Base
 
   # Utility to check if a table exists
   def table_exists?(table_name)
-    db.execute('SELECT name FROM sqlite_master WHERE type = ? AND name = ?', ['table', table_name]).any?
+    result = db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name=?;", [table_name])
+    result.empty?
   end
 end
