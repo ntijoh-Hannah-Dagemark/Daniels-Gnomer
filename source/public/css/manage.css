@@ -92,10 +92,17 @@
     text-align: center;
 }
 
+.wla{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
 .manage-submit-file-upload-button {
     width: 160px;
     font-size: 30px;
-    margin-top: 50px;
+    margin-top: 30px;
     padding: 0px;
     cursor: pointer;
 }
@@ -253,7 +260,8 @@
             box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.75);
             border-radius: 60px;
             width: 300px;
-            height: 200px;
+            height: 265px;
+            margin-top: 40px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -263,7 +271,7 @@
         .manage-submit-file-upload-button {
             width: 80px;
             font-size: 10px;
-            margin-top: 30px;
+            margin-top: 0px;
             padding: 0px;
             cursor: pointer;
         }
@@ -275,7 +283,7 @@
             color: gray;
             border-style: solid;
             border: 1px solid black;
-            padding-top: 8px;
+            padding-top: 6px;
             padding-bottom: 8px;
             padding-left: 8px;
             border-radius: 10px;
@@ -286,7 +294,7 @@
             font-size: 18px;
             padding-left: 40px;
             padding-right: 40px;
-            padding-top: 12px;
+            padding-top: 10px;
             padding-bottom: 12px;
             cursor: pointer;
             background-color: white;
