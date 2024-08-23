@@ -233,43 +233,72 @@ class App < Sinatra::Base
   end
 
 
-  # Route för att hantera filuppladdning
   post '/manage/upload' do
-    # Kontrollera att en fil har laddats upp och att det är en ZIP-fil
-    if params[:zip_file].nil? || File.extname(params[:zip_file][:filename]) != '.zip'
-      return "<p>Var god ladda upp en ZIP-fil.</p><a href='/manage'>Tillbaka</a>"
+
+    print("\n\nZip bulk upload from user #{session[:user_id]} begun\n\n")
+
+    # Check if a file has been uploaded and ensure it is a ZIP file
+    if params[:zip_file].nil?
+      flash[:notice] = "No file found"
+      redirect '/manage'
     end
 
-    # Spara ZIP-filen temporärt
+    if File.extname(params[:zip_file][:filename]) != '.zip'
+      flash[:notice] = "Uploaded file is not a ZIP file"
+      redirect '/manage'
+    end
+
+    # Save the ZIP file temporarily
     temp_zip = params[:zip_file][:tempfile]
-    p temp_zip
-    p params[:zip_file]
-    p params[:tempfile]
+    print "Temporary ZIP file path: #{temp_zip.path}\n"
+    print "Uploaded ZIP file details: #{params[:zip_file]}\n"
 
-    # Skapa mappen för uppladdade filer om den inte finns
+    # Create the directory for uploaded files if it doesn't exist
     upload_dir = 'public/uploads'
-    FileUtils.mkdir_p(upload_dir)
+    print "Upload directory: #{upload_dir}\n"
 
-    # Extrahera ZIP-filen och spara bilderna
-    Zip::File.open(temp_zip) do |zip_file|
-      zip_file.each do |entry|
-        if entry.file? && ['.jpg', '.jpeg', '.png', '.gif'].include?(File.extname(entry.name).downcase)
-          # Ta bort filändelsen från filnamnet
-          filename_without_extension = File.basename(entry.name, File.extname(entry.name))
+    # Define the extraction directory
+    extraction_dir = File.join(upload_dir, 'extracted')
+    FileUtils.mkdir_p(extraction_dir)
+    print "Extraction directory: #{extraction_dir}\n"
 
-          # Bestäm var filen ska sparas
-          filepath = File.join(upload_dir, entry.name)
+    # Use system command to unzip the file
+    unzip_command = "unzip -o #{temp_zip.path} -d #{extraction_dir}"
+    print "Running command: #{unzip_command}\n"
+    system(unzip_command)
 
-          # Spara bilden till mappen på servern
-          entry.extract(filepath) { true } # Överskriv om filen redan finns
-
-          # Spara informationen i databasen
-          db.execute("INSERT INTO people (name, filepath) VALUES (?, ?)", [filename_without_extension, filepath])
-        end
-      end
+    # Check if the unzip command was successful
+    if $?.exitstatus != 0
+      flash[:notice] = "An error occurred while processing the ZIP file."
+      redirect '/manage'
     end
 
-    # Omdirigera tillbaka till /manage efter att uppladdningen är klar
+    # Process extracted files
+    Dir.glob(File.join(extraction_dir, '**', '*')).each do |file|
+      next unless File.file?(file) # Skip directories and other non-file entries
+
+      print "Processing file: #{file}\n"
+      
+      # Extract filename and extension
+      filename_with_extension = File.basename(file)
+      filename_without_extension = File.basename(file, File.extname(file))
+      relpath = "/uploads/downloaded/#{filename_with_extension}"
+      filepath = File.join(upload_dir, 'downloaded', filename_with_extension)
+      
+      print "Filename without extension: #{filename_without_extension}\n"
+      print "Saving file to: #{filepath}\n"
+
+      # Move the file to the public folder
+      FileUtils.mv(file, filepath)
+
+      # Save the information in the database
+      db.execute("INSERT INTO people (name, filepath) VALUES (?, ?)", [filename_without_extension, relpath])
+      print "Database entry created for: #{filename_without_extension}, #{relpath}\n"
+    end
+
+    print "ZIP file extraction and processing completed\n"
+
+    # Redirect back to /manage after the upload is complete
     redirect '/manage'
   end
 end
